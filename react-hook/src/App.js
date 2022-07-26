@@ -1,26 +1,15 @@
-import UseEffectExample from './useEffect-example';
-import {useState} from 'react'
+// import UseEffectExample from './useEffect-example';
+import UseEffectExample from "./components/useEffect-example";
+import UseStateExamples from "./components/useState-example"
 
 function App(props) {
 
-  const [count, setCount] = useState(1)
-  const [show, setShow] = useState(false);
-
-  const handleIncrease = () => {
-    setCount(count + 1)
-  }
-
-
-
+  // const [show, setShow] = useState(false);
 
   return (
-    <div className="App">
-      <div>
-        <h1>{count}</h1>
-        <button onClick={handleIncrease}>Increase</button>
-      </div>
-      <button onClick={() => setShow(!show)}>Toggle</button>
-      {show && <UseEffectExample />}
+    <div className="App" style={{padding: 30}}>
+      <UseStateExamples />
+      <UseEffectExample />
     </div>
   );
 }
