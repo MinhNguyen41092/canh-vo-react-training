@@ -1,1 +1,0 @@
-import '../assets/styles/layouts/main.css'

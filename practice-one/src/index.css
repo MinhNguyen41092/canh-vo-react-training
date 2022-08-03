@@ -1,13 +1,15 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* Abstracts */
+@import 'assets/styles/abstracts/variables.css';
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+/* Base */
+@import 'assets/styles/base/global.css';
+
+/* Components */
+@import 'assets/styles/components/popup.css';
+@import 'assets/styles/components/question.css';
+
+/* Layouts */
+@import 'assets/styles/layouts/main.css';
+@import 'assets/styles/layouts/footer.css';
+
+
