@@ -21,19 +21,34 @@
   margin-right: -3rem;
 }
 
-.answer {
-  border: solid 0.2rem var(--primary-color);
+.answer, .right, .wrong {
   margin-right: 3rem;
   margin-bottom: 2rem;
   width: calc(50% - 3rem);
   text-align: center;
   padding: 3rem;
-  color: var(--primary-color);
   font-size: 2rem;
   font-weight: 600;
+  transition: 0.2s;
+}
+.answer {
+  border: solid 0.2rem var(--primary-color);
+  color: var(--primary-color);
+  cursor: pointer;
 }
 
 .answer:hover {
-  background-color: var(--primary-color);
+  transform: scale(1.03);
+}
+
+.right {
+  border: solid 0.2rem var(--secondary-color);
+  background-color: var(--right-color);
+  color: var(--secondary-color);
+}
+
+.wrong {
+  border: solid 0.2rem var(--secondary-color);
+  background-color: var(--wrong-color);
   color: var(--secondary-color);
 }

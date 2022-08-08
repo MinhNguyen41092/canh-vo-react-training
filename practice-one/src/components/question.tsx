@@ -5,15 +5,40 @@ type QuestionProps = {
   currentIndex: number,
   question: string,
   answers: Array<string>,
+  correct: string,
+  isAnswered: boolean,
+  showButton: () => void,
+  increaseScore: () => void,
 }
 
 type QuestionState = {
-  
+  disabled: boolean
 }
+
 class Question extends React.Component<QuestionProps, QuestionState> {
   constructor(props: QuestionProps) { 
     super(props)
+    this.state = {
+      disabled: false
+    }
+
+    this.checkAnswer = this.checkAnswer.bind(this)
   }
+
+  checkAnswer(e: any) {
+    if(!this.props.isAnswered) {
+      if(e.target.outerText === this.props.correct) {
+        e.currentTarget.classList.add('right')
+        this.props.increaseScore()
+      }
+      else {
+        e.currentTarget.classList.add('wrong')
+      }
+    }
+
+    this.props.showButton()
+  }
+
 
   render() {
 
@@ -24,8 +49,14 @@ class Question extends React.Component<QuestionProps, QuestionState> {
             <p className="question-text">{this.props.question}</p>
           </div>
           <ul className="answers">
-            {this.props.answers.map(item => (
-              <li className="answer" key={item}>{item}</li>
+            {this.props.answers.map((item, index) => (
+              <li 
+                className="answer" 
+                key={index} 
+                onClick={this.checkAnswer}
+              >
+                  {item}
+              </li>
             ))}
           </ul>
         </div>

@@ -18,7 +18,9 @@ type MainState = {
   disable: boolean,
   question: string,
   answers: Array<string>,
-  correct: string
+  correct: string,
+  displayPopup: string,
+  questionAnswered: boolean,
 }
 
 class Main extends React.Component<MainProps, MainState> {
@@ -35,8 +37,15 @@ class Main extends React.Component<MainProps, MainState> {
       disable: true,
       question: '',
       answers: [],
-      correct: ''
+      correct: '',
+      displayPopup: 'block',
+      questionAnswered: false,
     }
+
+    this.handleStartQuiz = this.handleStartQuiz.bind(this)
+    this.handleShowButton = this.handleShowButton.bind(this)
+    this.handleIncreaseScore = this.handleIncreaseScore.bind(this)
+    this.handleNextQuestion = this.handleNextQuestion.bind(this)
   }
 
 
@@ -54,24 +63,71 @@ class Main extends React.Component<MainProps, MainState> {
       correct: res.data.results[currentIndex].correct_answer,
       currentIndex: currentIndex + 1 
     })
-    console.log(this.state)
+
+
   }
 
+  handleStartQuiz() {
+    this.setState({
+      displayPopup: 'none',
+    })
+  }
+
+  handleShowButton() {
+    this.setState({
+      disable: false,
+      questionAnswered: true
+    })
+  }
+
+  handleIncreaseScore() {
+    this.setState({
+      score: this.state.score + 1
+    });
+  }
+
+  handleNextQuestion() {
+    let {listQuestion, currentIndex, } = this.state
+    if(currentIndex === listQuestion.length) {
+      this.setState({
+        displayPopup: 'block'
+      })
+    } else {
+      this.componentDidMount()
+      this.setState({
+        disable: true,
+        questionAnswered:false
+      })
+    }
+  }
 
   render() {
-    const { currentIndex, listQuestion, question, answers} = this.state;
+    const { 
+      currentIndex, 
+      listQuestion, 
+      question, 
+      answers, 
+      correct, 
+      displayPopup, 
+      questionAnswered,
+      disable,
+    } = this.state;
 
     return (
       <div>
-        <Popup />
+        <Popup startQuiz={this.handleStartQuiz} style={{display: displayPopup}}/>
         <Question 
           currentIndex={currentIndex} 
           listQuestion={listQuestion} 
           question={question}
           answers={answers}
-          />
+          correct={correct}
+          isAnswered={questionAnswered}
+          showButton={this.handleShowButton}
+          increaseScore={this.handleIncreaseScore}
+        />
         
-        <Button text='NEXT QUESTION' disabled/>
+        <Button text='NEXT QUESTION' disabled={disable} nextQuestion={this.handleNextQuestion}/>
         <Footer />
       </div>
     )
