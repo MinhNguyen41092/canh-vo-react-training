@@ -1,51 +1,78 @@
 import React from "react";
 import axios from "axios";
 import Popup from "../components/popup";
+import Question from "../components/question";
+import Footer from "./footer";
+import Button from "../components/button";
 
-class Main extends React.Component {
+type MainProps = {
+
+}
+
+type MainState = {
+  listQuestion: Array<string>,
+  currentIndex: number,
+  userAnswer: string|null,
+  quizEnd: boolean,
+  score: number,
+  disable: boolean,
+  question: string,
+  answers: Array<string>,
+  correct: string
+}
+
+class Main extends React.Component<MainProps, MainState> {
   
-  constructor(props: any) {
+  constructor(props: MainProps) {
     super(props)
 
     this.state = {
       listQuestion: [],
       currentIndex: 0,
       userAnswer: null,
-      options: [],
       quizEnd: false,
       score: 0,
       disable: true,
-      displayPopup: 'flex'
+      question: '',
+      answers: [],
+      correct: ''
     }
   }
 
 
   async componentDidMount() {
-    let {currentIndex}: any = this.state
+    const {currentIndex} = this.state
     let res = await axios.get('https://opentdb.com/api.php?amount=8');
+    const answer = res.data.results[currentIndex].incorrect_answers
+          answer.push(res.data.results[currentIndex].correct_answer)
+                  
+    
     this.setState({
       listQuestion: res && res.data && res.data.results ? res.data.results: [],
       question: res.data.results[currentIndex].question,
-      answers: res.data.results[currentIndex].incorrect_answers
-      .push(res.data.results[currentIndex].correct_answer),
+      answers: answer,
       correct: res.data.results[currentIndex].correct_answer,
       currentIndex: currentIndex + 1 
     })
+    console.log(this.state)
   }
 
 
   render() {
-    let { currentIndex, listQuestion, question, displayPopup}: any = this.state;
+    const { currentIndex, listQuestion, question, answers} = this.state;
 
     return (
       <div>
         <Popup />
-        <div>
-          <div id="question" >
-            <h4>Question {currentIndex}/{listQuestion.length}</h4>
-            <p>{question}</p>
-          </div>
-        </div>
+        <Question 
+          currentIndex={currentIndex} 
+          listQuestion={listQuestion} 
+          question={question}
+          answers={answers}
+          />
+        
+        <Button text='NEXT QUESTION' disabled/>
+        <Footer />
       </div>
     )
   }

@@ -3,10 +3,12 @@
 
 /* Base */
 @import url(./base/global.css);
+@import url(./base/reset.css);
 
 /* Components */
 @import url(./components/popup.css);
 @import url(./components/question.css);
+@import url(./components/button.css);
 
 /* Layouts */
 @import url(./layouts/main.css);
