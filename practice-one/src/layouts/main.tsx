@@ -4,10 +4,9 @@ import Popup from "../components/popup";
 import Question from "../components/question";
 import Footer from "./footer";
 import Button from "../components/button";
+import { umask } from "process";
 
-type MainProps = {
-
-}
+type MainProps = {}
 
 type MainState = {
   listQuestion: Array<string>,
@@ -21,6 +20,9 @@ type MainState = {
   correct: string,
   displayPopup: string,
   questionAnswered: boolean,
+  popupTitle: string,
+  popupText: string,
+  popupButtonText: string
 }
 
 class Main extends React.Component<MainProps, MainState> {
@@ -40,6 +42,9 @@ class Main extends React.Component<MainProps, MainState> {
       correct: '',
       displayPopup: 'block',
       questionAnswered: false,
+      popupTitle: 'Welcome to Quizz',
+      popupText: 'This is a quiz application built using ReactJS',
+      popupButtonText: 'START THE QUIZZ'
     }
 
     this.handleStartQuiz = this.handleStartQuiz.bind(this)
@@ -63,8 +68,6 @@ class Main extends React.Component<MainProps, MainState> {
       correct: res.data.results[currentIndex].correct_answer,
       currentIndex: currentIndex + 1 
     })
-
-
   }
 
   handleStartQuiz() {
@@ -86,11 +89,17 @@ class Main extends React.Component<MainProps, MainState> {
     });
   }
 
+  liRef = React.createRef<HTMLDivElement>();
+
   handleNextQuestion() {
     let {listQuestion, currentIndex, } = this.state
     if(currentIndex === listQuestion.length) {
       this.setState({
-        displayPopup: 'block'
+        displayPopup: 'block',
+        popupTitle: 'Congratulations!',
+        popupText: `You have completed the quiz, you got: ${this.state.score} 
+                    out of ${this.state.listQuestion.length} questions right.`,
+        popupButtonText: 'RESTART'
       })
     } else {
       this.componentDidMount()
@@ -98,6 +107,15 @@ class Main extends React.Component<MainProps, MainState> {
         disable: true,
         questionAnswered:false
       })
+    }
+
+    const ul = this.liRef.current?.children[1].children[1].children
+    if(ul) {
+      for (var i = 0; i < ul.length; i++) {
+        var li = ul[i];
+        li.classList.remove('right')
+        li.classList.remove('wrong')
+      }
     }
   }
 
@@ -111,11 +129,21 @@ class Main extends React.Component<MainProps, MainState> {
       displayPopup, 
       questionAnswered,
       disable,
+      popupTitle,
+      popupText,
+      popupButtonText
     } = this.state;
 
     return (
-      <div>
-        <Popup startQuiz={this.handleStartQuiz} style={{display: displayPopup}}/>
+      <div ref={this.liRef}>
+        <Popup 
+          startQuiz={this.handleStartQuiz} 
+          style={{display: displayPopup}}
+          popupTitle={popupTitle}
+          popupText={popupText}
+          popupButtonText={popupButtonText}
+        />
+
         <Question 
           currentIndex={currentIndex} 
           listQuestion={listQuestion} 
@@ -127,7 +155,12 @@ class Main extends React.Component<MainProps, MainState> {
           increaseScore={this.handleIncreaseScore}
         />
         
-        <Button text='NEXT QUESTION' disabled={disable} nextQuestion={this.handleNextQuestion}/>
+        <Button 
+          text='NEXT QUESTION' 
+          disabled={disable} 
+          nextQuestion={this.handleNextQuestion}
+        />
+
         <Footer />
       </div>
     )
