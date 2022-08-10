@@ -38,7 +38,7 @@
 }
 
 .answer:hover {
-  transform: scale(1.03);
+  transform: scale(1.01);
 }
 
 .right {
@@ -51,4 +51,9 @@
   border: solid 0.2rem var(--secondary-color);
   background-color: var(--wrong-color);
   color: var(--secondary-color);
+}
+
+.selected {
+  border: solid 0.3rem var(--right-color);
+  color: var(--right-color);
 }

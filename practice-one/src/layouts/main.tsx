@@ -1,24 +1,35 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Popup from "../components/popup";
 import Question from "../components/question";
 import Footer from "./footer";
 import Button from "../components/button";
-import { umask } from "process";
+
+// type objQuestion = {
+//   category? :string,
+//   question?: string,
+//   correct_answer?: string,
+//   difficulty?: string,
+//   incorrect_answers?: Array<string>
+//   type?: boolean
+// }
 
 type MainProps = {}
 
 type MainState = {
   listQuestion: Array<string>,
+  // objQuestion: objQuestion,
   currentIndex: number,
-  userAnswer: string|null,
-  quizEnd: boolean,
   score: number,
   disable: boolean,
-  question: string,
+  question: any,
   answers: Array<string>,
   correct: string,
+  userAnswer: string,
   displayPopup: string,
+  displayStartquizBtn: string,
+  displaySeeResultBtn: string,
   questionAnswered: boolean,
   popupTitle: string,
   popupText: string,
@@ -32,15 +43,17 @@ class Main extends React.Component<MainProps, MainState> {
 
     this.state = {
       listQuestion: [],
+      // objQuestion: {},
       currentIndex: 0,
-      userAnswer: null,
-      quizEnd: false,
       score: 0,
       disable: true,
       question: '',
       answers: [],
       correct: '',
+      userAnswer: '',
       displayPopup: 'block',
+      displayStartquizBtn: 'block',
+      displaySeeResultBtn: 'none',
       questionAnswered: false,
       popupTitle: 'Welcome to Quizz',
       popupText: 'This is a quiz application built using ReactJS',
@@ -49,28 +62,43 @@ class Main extends React.Component<MainProps, MainState> {
 
     this.handleStartQuiz = this.handleStartQuiz.bind(this)
     this.handleShowButton = this.handleShowButton.bind(this)
-    this.handleIncreaseScore = this.handleIncreaseScore.bind(this)
+    this.getUserAnswer = this.getUserAnswer.bind(this)
     this.handleNextQuestion = this.handleNextQuestion.bind(this)
+    this.handleRestartQuiz = this.handleRestartQuiz.bind(this)
   }
 
-
   async componentDidMount() {
-    const {currentIndex} = this.state
-    let res = await axios.get('https://opentdb.com/api.php?amount=8');
+    const {currentIndex, listQuestion} = this.state
+    let res = await axios.get('https://opentdb.com/api.php?amount=5');
     const answer = res.data.results[currentIndex].incorrect_answers
-          answer.push(res.data.results[currentIndex].correct_answer)
-                  
-    
+          answer.push(res.data.results[currentIndex].correct_answer)            
     this.setState({
       listQuestion: res && res.data && res.data.results ? res.data.results: [],
       question: res.data.results[currentIndex].question,
       answers: answer,
       correct: res.data.results[currentIndex].correct_answer,
-      currentIndex: currentIndex + 1 
+      currentIndex: currentIndex + 1,
     })
   }
 
+  // setData() {
+    
+    
+  //   // this.setState({
+  //   //   question: this.state.listQuestion[currentIndex].question,
+  //   //   answers: answer,
+  //   //   correct: this.state.listQuestion[currentIndex].correct_answer,
+  //   //   currentIndex: currentIndex + 1 
+  //   // })
+  // }
+
   handleStartQuiz() {
+    this.setState({
+      displayPopup: 'none',
+    })
+  }
+
+  handleRestartQuiz() {
     this.setState({
       displayPopup: 'none',
     })
@@ -79,45 +107,54 @@ class Main extends React.Component<MainProps, MainState> {
   handleShowButton() {
     this.setState({
       disable: false,
-      questionAnswered: true
     })
   }
 
-  handleIncreaseScore() {
-    this.setState({
-      score: this.state.score + 1
-    });
+  getUserAnswer(data: any) {
+    if(data == this.state.correct) {
+      this.setState({
+        userAnswer: data
+      });
+    }
   }
+  
+
 
   liRef = React.createRef<HTMLDivElement>();
 
   handleNextQuestion() {
-    let {listQuestion, currentIndex, } = this.state
+    let {listQuestion, currentIndex, score, correct, userAnswer} = this.state
+    if(userAnswer == correct) {
+      this.setState({
+      score: score + 1
+    })
+    }
+  
     if(currentIndex === listQuestion.length) {
       this.setState({
         displayPopup: 'block',
-        popupTitle: 'Congratulations!',
-        popupText: `You have completed the quiz, you got: ${this.state.score} 
-                    out of ${this.state.listQuestion.length} questions right.`,
-        popupButtonText: 'RESTART'
+        displaySeeResultBtn:'block',
+        displayStartquizBtn: 'none',
+        popupTitle: 'Finish Quizz',
+        popupText: "You have completed the quiz",
+        popupButtonText: 'SEE RESULT'
       })
     } else {
       this.componentDidMount()
       this.setState({
         disable: true,
-        questionAnswered:false
+        questionAnswered:false,
       })
     }
-
-    const ul = this.liRef.current?.children[1].children[1].children
-    if(ul) {
-      for (var i = 0; i < ul.length; i++) {
-        var li = ul[i];
-        li.classList.remove('right')
-        li.classList.remove('wrong')
-      }
-    }
   }
+    // const ul = this.liRef.current?.children[1].children[1].children
+    // if(ul) {
+    //   for (var i = 0; i < ul.length; i++) {
+    //     var li = ul[i];
+    //     li.classList.remove('right')
+    //     li.classList.remove('wrong')
+    //   }
+    // }
 
   render() {
     const { 
@@ -126,12 +163,14 @@ class Main extends React.Component<MainProps, MainState> {
       question, 
       answers, 
       correct, 
-      displayPopup, 
-      questionAnswered,
+      displayPopup,
+      displayStartquizBtn,
+      displaySeeResultBtn, 
       disable,
       popupTitle,
       popupText,
-      popupButtonText
+      popupButtonText,
+      score
     } = this.state;
 
     return (
@@ -139,9 +178,12 @@ class Main extends React.Component<MainProps, MainState> {
         <Popup 
           startQuiz={this.handleStartQuiz} 
           style={{display: displayPopup}}
+          displayStartquizBtn={{display: displayStartquizBtn}}
+          displaySeeResultBtn={{display: displaySeeResultBtn}}
           popupTitle={popupTitle}
           popupText={popupText}
           popupButtonText={popupButtonText}
+          score={score}
         />
 
         <Question 
@@ -150,9 +192,8 @@ class Main extends React.Component<MainProps, MainState> {
           question={question}
           answers={answers}
           correct={correct}
-          isAnswered={questionAnswered}
           showButton={this.handleShowButton}
-          increaseScore={this.handleIncreaseScore}
+          getUserAnswer={this.getUserAnswer}
         />
         
         <Button 
@@ -160,7 +201,6 @@ class Main extends React.Component<MainProps, MainState> {
           disabled={disable} 
           nextQuestion={this.handleNextQuestion}
         />
-
         <Footer />
       </div>
     )

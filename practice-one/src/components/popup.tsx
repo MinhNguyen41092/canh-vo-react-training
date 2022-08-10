@@ -1,12 +1,15 @@
 import React from "react";
-import '../assets/styles/index.css'
+import {Link} from 'react-router-dom'
 
 type PopupProps = {
   popupTitle: string,
   popupText: string,
   popupButtonText: string
   startQuiz: () => void,
-  style: {display: string}
+  style: {display: string},
+  displayStartquizBtn: {display: string},
+  displaySeeResultBtn: {display: string},
+  score: number
 }
 
 type PopupState = {}
@@ -21,7 +24,7 @@ class Popup extends React.Component<PopupProps, PopupState> {
   handlePopup() {
     if(this.props.popupButtonText === 'START THE QUIZZ') {
       this.props.startQuiz()
-    } else window.location.reload(); 
+    }
   }
 
   render() {
@@ -31,7 +34,16 @@ class Popup extends React.Component<PopupProps, PopupState> {
         <div className="popup">
           <h1 className="popup-heading">{this.props.popupTitle}</h1>
           <p className="popup-text">{this.props.popupText}</p>
-          <button className="btn popup-btn" onClick={this.handlePopup}>{this.props.popupButtonText}</button>
+          <button 
+            className="btn popup-btn" 
+            onClick={this.handlePopup}
+            style={this.props.displayStartquizBtn}
+            >
+              {this.props.popupButtonText}
+          </button>
+          <button className="btn popup-btn" style={this.props.displaySeeResultBtn}>
+            <Link className="link" to={{pathname: "/result", }}>See Result</Link>
+          </button>
         </div>
       </div>
     )

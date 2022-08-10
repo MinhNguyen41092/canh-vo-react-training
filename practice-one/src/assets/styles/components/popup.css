@@ -31,5 +31,14 @@
 }
 
 .popup-btn {
+  margin: 0 auto;
   margin-bottom: 4rem;
+}
+
+.link {
+  color: var(--secondary-color);
+}
+
+.link:hover {
+  color: var(--btn-primary-color);
 }
