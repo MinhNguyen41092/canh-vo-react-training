@@ -9,7 +9,10 @@ type PopupProps = {
   style: {display: string},
   displayStartquizBtn: {display: string},
   displaySeeResultBtn: {display: string},
-  score: number
+  score: number,
+  listQuestion: Array<String>
+  listUserAnswer: Array<String>
+  data: Array<string>
 }
 
 type PopupState = {}
@@ -28,7 +31,14 @@ class Popup extends React.Component<PopupProps, PopupState> {
   }
 
   render() {
-    
+    let {listQuestion, score, listUserAnswer, data} = this.props
+    const reusltData = {
+      listQuestion: listQuestion,
+      score: score,
+      listUserAnswer: listUserAnswer,
+      data: data
+    }
+
     return (
       <div className="popup-container" style={this.props.style}>
         <div className="popup">
@@ -41,9 +51,10 @@ class Popup extends React.Component<PopupProps, PopupState> {
             >
               {this.props.popupButtonText}
           </button>
-          <button className="btn popup-btn" style={this.props.displaySeeResultBtn}>
-            <Link className="link" to={{pathname: "/result", }}>See Result</Link>
-          </button>
+            <Link className="link" to={{pathname: "/result"}} 
+                  state={reusltData}>
+              <button className="btn popup-btn" style={this.props.displaySeeResultBtn}>See Result</button>
+            </Link>
         </div>
       </div>
     )

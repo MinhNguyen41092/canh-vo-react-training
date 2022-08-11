@@ -9,6 +9,7 @@
 @import url(./components/popup.css);
 @import url(./components/question.css);
 @import url(./components/button.css);
+@import url(./components/result.css);
 
 /* Layouts */
 @import url(./layouts/main.css);

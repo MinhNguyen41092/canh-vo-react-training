@@ -46,7 +46,7 @@ class Question extends React.Component<QuestionProps, QuestionState> {
             <p className="question-text">{this.props.question}</p>
           </div>
           <ul className="answers" >
-            {this.props.answers.map((item, index) => (
+            {this.props.answers?.map((item, index) => (
               <li 
                 className={`answer ${this.state.selected === item ? "selected": null}`} 
                 key={index} 
