@@ -66,7 +66,11 @@ class Main extends React.Component<MainProps, MainState> {
     
     const quizzData = await data
     
+    const question = quizzData[currentIndex]?.question
+    const formatQuestion = question?.replace(/&quot;/g, '').replace(/&#039;/g, '')
+
     const answer = quizzData[currentIndex]?.incorrect_answers
+    console.log(answer)
     
     const correct = quizzData[currentIndex]?.correct_answer
     
@@ -75,14 +79,16 @@ class Main extends React.Component<MainProps, MainState> {
     answer?.sort(function() {
       return 0.5 - Math.random();
     });
+
     const list: any = []
     quizzData.map((item: any) => (
       list.push(item.question)
     ))
+
     this.setState({
       data: quizzData,
       listQuestion: list,
-      question: quizzData[currentIndex]?.question,
+      question: formatQuestion,
       answers: answer,
       correct: correct,
       currentIndex: currentIndex + 1
@@ -115,11 +121,15 @@ class Main extends React.Component<MainProps, MainState> {
   
   handleNextQuestion() {
     let {listQuestion, currentIndex, score, correct, userAnswer} = this.state
+
     const listUserAnswer = this.state.listUserAnswer
+
     listUserAnswer.push(userAnswer)
+    
     this.setState({
       listUserAnswer: listUserAnswer
       })
+
     if(userAnswer === correct) {
       this.setState({
       score: score + 1,
@@ -142,6 +152,7 @@ class Main extends React.Component<MainProps, MainState> {
         questionAnswered:false,
       })
     }
+    
     this.componentDidMount()
   }
 

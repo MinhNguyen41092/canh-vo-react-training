@@ -41,22 +41,23 @@ class Question extends React.Component<QuestionProps, QuestionState> {
 
     return (
       <div className="container question-container">
-          <div className="question" >
-            <h3 className="number-question">Question {this.props.currentIndex}/{this.props.listQuestion.length}</h3>
-            <p className="question-text">{this.props.question}</p>
-          </div>
-          <ul className="answers" >
-            {this.props.answers?.map((item, index) => (
-              <li 
-                className={`answer ${this.state.selected === item ? "selected": null}`} 
-                key={index} 
-                onClick={this.checkAnswer}
-              >
-                  {item}
-              </li>
-            ))}
-          </ul>
+        <div className="question" >
+          <h3 className="number-question">Question {this.props.currentIndex}/{this.props.listQuestion.length}</h3>
+          <p className="question-text">{this.props.question}</p>
         </div>
+        
+        <ul className="answers" >
+          {this.props.answers?.map((item, index) => (
+            <li 
+              className={`answer ${this.state.selected === item ? "selected": null}`} 
+              key={index} 
+              onClick={this.checkAnswer}
+            >
+                {item}
+            </li>
+          ))}
+        </ul>
+      </div>
     )
   }
 }
