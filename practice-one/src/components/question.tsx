@@ -29,10 +29,12 @@ class Question extends React.Component<QuestionProps, QuestionState> {
   }
 
   checkAnswer(e: any) {
-      const selected = e.target.outerText
-      this.setState({
+    const selected = e.target.outerText
+
+    this.setState({
         selected: selected
-      })
+    })
+
     this.props.showButton()
     this.props.getUserAnswer(selected)
   }

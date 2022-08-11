@@ -70,7 +70,6 @@ class Main extends React.Component<MainProps, MainState> {
     const formatQuestion = question?.replace(/&quot;/g, '').replace(/&#039;/g, '')
 
     const answer = quizzData[currentIndex]?.incorrect_answers
-    console.log(answer)
     
     const correct = quizzData[currentIndex]?.correct_answer
     
@@ -132,7 +131,7 @@ class Main extends React.Component<MainProps, MainState> {
 
     if(userAnswer === correct) {
       this.setState({
-      score: score + 1,
+        score: score + 1,
       })
     }
     
