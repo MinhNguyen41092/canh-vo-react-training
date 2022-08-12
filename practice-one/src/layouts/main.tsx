@@ -67,29 +67,38 @@ class Main extends React.Component<MainProps, MainState> {
     const quizzData = await data
     
     const question = quizzData[currentIndex]?.question
-    const formatQuestion = question?.replace(/&quot;/g, '').replace(/&#039;/g, '').replace(/&amp;/g, '')
+    const formatQuestion = question?.replace(/&quot;/g, '').replace(/&#039;/g, '')
+    .replace(/&amp;/g, '').replace(/&Uuml;/g, '').replace(/&Uuml;/g, '')
 
     const answer = quizzData[currentIndex]?.incorrect_answers
     
     const correct = quizzData[currentIndex]?.correct_answer
+    const formatCorrect = correct?.replace(/&quot;/g, '').replace(/&#039;/g, '')
+    .replace(/&amp;/g, '').replace(/&Uuml;/g, '').replace(/&Uuml;/g, '')
     
-    if(answer?.indexOf(correct) === -1) answer.push(correct)
+    if(answer?.indexOf(formatCorrect) === -1) answer.push(formatCorrect)
 
     answer?.sort(function() {
       return 0.5 - Math.random();
     });
 
+    const formatAnswer = answer?.map((item: string) => {
+      return item?.replace(/&quot;/g, '').replace(/&#039;/g, '')
+      .replace(/&amp;/g, '').replace(/&Uuml;/g, '').replace(/&Uuml;/g, '')
+    })
+
     const list: any = []
     quizzData.map((item: any) => (
-      list.push(item.question)
+      list.push(item.question.replace(/&quot;/g, '').replace(/&#039;/g, '')
+      .replace(/&amp;/g, '').replace(/&Uuml;/g, '').replace(/&Uuml;/g, ''))
     ))
 
     this.setState({
       data: quizzData,
       listQuestion: list,
       question: formatQuestion,
-      answers: answer,
-      correct: correct,
+      answers: formatAnswer,
+      correct: formatCorrect,
       currentIndex: currentIndex + 1
     })           
   }
