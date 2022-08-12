@@ -67,7 +67,7 @@ class Main extends React.Component<MainProps, MainState> {
     const quizzData = await data
     
     const question = quizzData[currentIndex]?.question
-    const formatQuestion = question?.replace(/&quot;/g, '').replace(/&#039;/g, '')
+    const formatQuestion = question?.replace(/&quot;/g, '').replace(/&#039;/g, '').replace(/&amp;/g, '')
 
     const answer = quizzData[currentIndex]?.incorrect_answers
     
