@@ -17,9 +17,11 @@ class Button extends React.Component<ButtonProps, {}> {
   }
 
   render() {
+    const {disabled, text} = this.props
+
     return (
       <div className="btn-section">
-        <button className="btn" disabled={this.props.disabled} onClick={this.handleButton}>{this.props.text}</button>
+        <button className="btn" disabled={disabled} onClick={this.handleButton}>{text}</button>
       </div>
     )
   }

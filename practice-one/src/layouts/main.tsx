@@ -35,7 +35,6 @@ class Main extends React.Component<MainProps, MainState> {
     this.state = {
       data: [],
       listQuestion: [],
-      // objQuestion: {},
       currentIndex: 0,
       score: 0,
       disable: true,
@@ -52,82 +51,77 @@ class Main extends React.Component<MainProps, MainState> {
       popupText: 'This is a quiz application built using ReactJS',
       popupButtonText: 'START THE QUIZZ'
     }
-
-    this.handleStartQuiz = this.handleStartQuiz.bind(this)
-    this.handleShowButton = this.handleShowButton.bind(this)
-    this.getUserAnswer = this.getUserAnswer.bind(this)
-    this.handleNextQuestion = this.handleNextQuestion.bind(this)
-    this.handleRestartQuiz = this.handleRestartQuiz.bind(this)
   }
 
-  async componentDidMount() {
-    
-    const {currentIndex} = this.state
-    
-    const quizzData = await data
-    
-    const question = quizzData[currentIndex]?.question
-    const formatQuestion = question?.replace(/&quot;/g, '').replace(/&#039;/g, '')
-    .replace(/&amp;/g, '').replace(/&Uuml;/g, '').replace(/&Uuml;/g, '')
-
-    const answer = quizzData[currentIndex]?.incorrect_answers
-    
-    const correct = quizzData[currentIndex]?.correct_answer
-    const formatCorrect = correct?.replace(/&quot;/g, '').replace(/&#039;/g, '')
-    .replace(/&amp;/g, '').replace(/&Uuml;/g, '').replace(/&Uuml;/g, '')
-    
-    if(answer?.indexOf(formatCorrect) === -1) answer.push(formatCorrect)
-
-    answer?.sort(function() {
+  formatAnswer(Array: Array<string>) {
+    Array?.sort(function() {
       return 0.5 - Math.random();
-    });
-
-    const formatAnswer = answer?.map((item: string) => {
-      return item?.replace(/&quot;/g, '').replace(/&#039;/g, '')
-      .replace(/&amp;/g, '').replace(/&Uuml;/g, '').replace(/&Uuml;/g, '')
     })
+  } 
+
+  async componentDidMount() {
+    const {currentIndex} = this.state
+    const quizzData = await data
+    const question = quizzData[currentIndex]?.question
+    const correct = quizzData[currentIndex]?.correct_answer
+    const answer = quizzData[currentIndex]?.incorrect_answers
+
+    if(answer?.indexOf(correct) === -1) answer.push(correct)
+
+    this.formatAnswer(answer)
 
     const list: any = []
     quizzData.map((item: any) => (
-      list.push(item.question.replace(/&quot;/g, '').replace(/&#039;/g, '')
-      .replace(/&amp;/g, '').replace(/&Uuml;/g, '').replace(/&Uuml;/g, ''))
+      list.push(item.question)
     ))
 
     this.setState({
       data: quizzData,
       listQuestion: list,
-      question: formatQuestion,
-      answers: formatAnswer,
-      correct: formatCorrect,
+      question: question,
+      answers: answer,
+      correct: correct,
       currentIndex: currentIndex + 1
     })           
   }
 
-  handleStartQuiz() {
+  pushData() {
+    const {data, currentIndex} = this.state
+    const question = data[currentIndex].question
+    const correct = data[currentIndex]?.correct_answer
+    const answer = data[currentIndex]?.incorrect_answers
+
+    if(answer?.indexOf(correct) === -1) answer.push(correct)
+
+    this.formatAnswer(answer)
+
+    this.setState({
+      question: question,
+      answers: answer,
+      correct: correct,
+      currentIndex: currentIndex + 1
+    })
+  }
+
+  handleStartQuiz = () => {
     this.setState({
       displayPopup: 'none',
     })
   }
 
-  handleRestartQuiz() {
-    this.setState({
-      displayPopup: 'none',
-    })
-  }
-
-  handleShowButton() {
+  handleShowButton = () => {
     this.setState({
       disable: false,
     })
   }
 
-  getUserAnswer(data: any) {
+  getUserAnswer = (data: any) => {
       this.setState({
         userAnswer: data,
       });
   }
   
-  handleNextQuestion() {
+  handleNextQuestion = () => {
     let {listQuestion, currentIndex, score, correct, userAnswer} = this.state
 
     const listUserAnswer = this.state.listUserAnswer
@@ -152,16 +146,14 @@ class Main extends React.Component<MainProps, MainState> {
         popupTitle: 'Finish Quizz',
         popupText: "You have completed the quiz",
         popupButtonText: 'SEE RESULT',
-        
       })
     } else {
+      this.pushData()
       this.setState({
         disable: true,
         questionAnswered:false,
       })
     }
-    
-    this.componentDidMount()
   }
 
   render() {
@@ -184,15 +176,15 @@ class Main extends React.Component<MainProps, MainState> {
     } = this.state;
 
     return (
-      <div>
+      <>
         <Popup 
           startQuiz={this.handleStartQuiz} 
           style={{display: displayPopup}}
           displayStartquizBtn={{display: displayStartquizBtn}}
           displaySeeResultBtn={{display: displaySeeResultBtn}}
-          popupTitle={popupTitle}
-          popupText={popupText}
-          popupButtonText={popupButtonText}
+          title={popupTitle}
+          text={popupText}
+          buttonText={popupButtonText}
           score={score}
           listQuestion={listQuestion}
           listUserAnswer={listUserAnswer}
@@ -215,7 +207,7 @@ class Main extends React.Component<MainProps, MainState> {
           nextQuestion={this.handleNextQuestion}
         />
         <Footer />
-      </div>
+      </>
     )
   }
 }

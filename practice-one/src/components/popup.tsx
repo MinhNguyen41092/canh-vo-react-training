@@ -2,9 +2,9 @@ import React from "react";
 import {Link} from 'react-router-dom'
 
 type PopupProps = {
-  popupTitle: string,
-  popupText: string,
-  popupButtonText: string
+  title: string,
+  text: string,
+  buttonText: string
   startQuiz: () => void,
   style: {display: string},
   displayStartquizBtn: {display: string},
@@ -25,13 +25,25 @@ class Popup extends React.Component<PopupProps, PopupState> {
   }
 
   handlePopup() {
-    if(this.props.popupButtonText === 'START THE QUIZZ') {
+    if(this.props.buttonText === 'START THE QUIZZ') {
       this.props.startQuiz()
     }
   }
 
   render() {
-    let {listQuestion, score, listUserAnswer, data} = this.props
+    const {
+      listQuestion, 
+      score, 
+      listUserAnswer, 
+      data,
+      style,
+      title,
+      text,
+      buttonText,
+      displayStartquizBtn,
+      displaySeeResultBtn
+    } = this.props
+
     const reusltData = {
       listQuestion: listQuestion,
       score: score,
@@ -40,20 +52,20 @@ class Popup extends React.Component<PopupProps, PopupState> {
     }
 
     return (
-      <div className="popup-container" style={this.props.style}>
+      <div className="popup-container" style={style}>
         <div className="popup">
-          <h1 className="popup-heading">{this.props.popupTitle}</h1>
-          <p className="popup-text">{this.props.popupText}</p>
+          <h1 className="popup-heading">{title}</h1>
+          <p className="popup-text">{text}</p>
           <button 
             className="btn popup-btn" 
             onClick={this.handlePopup}
-            style={this.props.displayStartquizBtn}
+            style={displayStartquizBtn}
             >
-              {this.props.popupButtonText}
+              {buttonText}
           </button>
             <Link className="link" to={{pathname: "/result"}} 
                   state={reusltData}>
-              <button className="btn popup-btn" style={this.props.displaySeeResultBtn}>See Result</button>
+              <button className="btn popup-btn" style={displaySeeResultBtn}>See Result</button>
             </Link>
         </div>
       </div>
