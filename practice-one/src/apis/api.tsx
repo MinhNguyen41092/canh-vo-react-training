@@ -5,4 +5,4 @@ async function getData() {
   return res.data.results
 }
 
-export const data = getData()
+export const quizData = getData()

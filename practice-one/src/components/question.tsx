@@ -24,15 +24,13 @@ class Question extends React.Component<QuestionProps, QuestionState> {
       selected: '',
       score: 0
     }
-
-    this.checkAnswer = this.checkAnswer.bind(this)
   }
 
-  checkAnswer(e: any) {
+  checkAnswer = (e: any) => {
     const selected = e.target.outerText
 
     this.setState({
-        selected: selected
+      selected: selected
     })
 
     this.props.showButton()

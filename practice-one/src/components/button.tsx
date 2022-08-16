@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import React from "react";
 
 type ButtonProps = {
@@ -6,13 +7,14 @@ type ButtonProps = {
   nextQuestion: () => void
 }
 
-class Button extends React.Component<ButtonProps, {}> {
+type ButtonState = {}
+
+class Button extends React.Component<ButtonProps, ButtonState> {
   constructor(props: ButtonProps) {
     super(props)
-    this.handleButton = this.handleButton.bind(this)
   }
   
-  handleButton() {
+  handleButton = () => {
     this.props.nextQuestion()
   }
 

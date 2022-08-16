@@ -20,11 +20,9 @@ type PopupState = {}
 class Popup extends React.Component<PopupProps, PopupState> {
   constructor(props: PopupProps) { 
     super(props)
-
-    this.handlePopup = this.handlePopup.bind(this);
   }
 
-  handlePopup() {
+  handlePopup = () => {
     if(this.props.buttonText === 'START THE QUIZZ') {
       this.props.startQuiz()
     }

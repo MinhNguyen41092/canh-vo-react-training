@@ -1,5 +1,5 @@
 import React from "react";
-import { data } from "../apis/api";
+import { quizData } from "../apis/api";
 import Popup from "../components/popup";
 import Question from "../components/question";
 import Footer from "./footer";
@@ -21,7 +21,6 @@ type MainState = {
   displayPopup: string,
   displayStartquizBtn: string,
   displaySeeResultBtn: string,
-  questionAnswered: boolean,
   popupTitle: string,
   popupText: string,
   popupButtonText: string
@@ -46,22 +45,16 @@ class Main extends React.Component<MainProps, MainState> {
       displayPopup: 'block',
       displayStartquizBtn: 'block',
       displaySeeResultBtn: 'none',
-      questionAnswered: false,
       popupTitle: 'Welcome to Quizz',
       popupText: 'This is a quiz application built using ReactJS',
       popupButtonText: 'START THE QUIZZ'
     }
   }
 
-  formatAnswer(Array: Array<string>) {
-    Array?.sort(function() {
-      return 0.5 - Math.random();
-    })
-  } 
-
+  //
   async componentDidMount() {
     const {currentIndex} = this.state
-    const quizzData = await data
+    const quizzData = await quizData
     const question = quizzData[currentIndex]?.question
     const correct = quizzData[currentIndex]?.correct_answer
     const answer = quizzData[currentIndex]?.incorrect_answers
@@ -84,6 +77,12 @@ class Main extends React.Component<MainProps, MainState> {
       currentIndex: currentIndex + 1
     })           
   }
+
+  formatAnswer(Array: Array<string>) {
+    Array?.sort(function() {
+      return 0.5 - Math.random();
+    })
+  } 
 
   pushData() {
     const {data, currentIndex} = this.state
@@ -116,21 +115,21 @@ class Main extends React.Component<MainProps, MainState> {
   }
 
   getUserAnswer = (data: any) => {
-      this.setState({
-        userAnswer: data,
-      });
+    this.setState({
+      userAnswer: data,
+    });
   }
   
   handleNextQuestion = () => {
-    let {listQuestion, currentIndex, score, correct, userAnswer} = this.state
+    const {listQuestion, currentIndex, score, correct, userAnswer, listUserAnswer} = this.state
 
-    const listUserAnswer = this.state.listUserAnswer
+    const updateListUserAnswer = listUserAnswer
 
-    listUserAnswer.push(userAnswer)
+    updateListUserAnswer.push(userAnswer)
     
     this.setState({
-      listUserAnswer: listUserAnswer
-      })
+      listUserAnswer: updateListUserAnswer,
+    })
 
     if(userAnswer === correct) {
       this.setState({
@@ -151,7 +150,6 @@ class Main extends React.Component<MainProps, MainState> {
       this.pushData()
       this.setState({
         disable: true,
-        questionAnswered:false,
       })
     }
   }
