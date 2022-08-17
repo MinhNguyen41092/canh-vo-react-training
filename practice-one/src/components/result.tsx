@@ -22,10 +22,11 @@ function Result() {
       <h3 className="result-score">You got: {resultData.score} out of {resultData.listQuestion.length} questions right.</h3>
       
       {resultData.listQuestion.map((item, index) => (
+        
         <ChildResult
           key={index}
-          index={index}
-          item={item}
+          numberQuestion={index+1}
+          question={item}
           userAnswer={resultData.listUserAnswer[index]}
           answer={listAnswer[index]}
         />

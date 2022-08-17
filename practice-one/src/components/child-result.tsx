@@ -1,8 +1,8 @@
 import React from "react";
 
 type ChildResultProps = {
-  index: number
-  item: string
+  numberQuestion: number
+  question: string
   userAnswer: string,
   answer: string
 }
@@ -12,13 +12,13 @@ type ChildResultState = {}
 class ChildResult extends React.Component<ChildResultProps, ChildResultState> {
   
   render() {
-    const {index, item, userAnswer, answer} = this.props
+    const {numberQuestion, question, userAnswer, answer} = this.props
 
     return (
       <div className="result-detail">
         <p 
           className="result-question" 
-          dangerouslySetInnerHTML={{__html:`Question ${index+1}: ${item}`}}
+          dangerouslySetInnerHTML={{__html:`Question ${numberQuestion}: ${question}`}}
         ></p>
 
         <p 
