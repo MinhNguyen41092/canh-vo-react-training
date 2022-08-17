@@ -1,0 +1,24 @@
+.btn-section {
+  text-align: center;
+}
+.btn {
+  background-color: var(--btn-primary-color);
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  padding: 1.4rem 7.5rem;
+  font-weight: 600;
+  border: solid 0.2rem var(--secondary-color);
+}
+
+.btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--btn-primary-color);
+  border: solid 0.2rem var(--btn-primary-color);
+}
+
+.btn:disabled {
+  border: 1px solid var(--btn-secondary-color);
+  background-color: var(--secondary-color);
+  color: var(--btn-secondary-color);
+  cursor: default;
+}

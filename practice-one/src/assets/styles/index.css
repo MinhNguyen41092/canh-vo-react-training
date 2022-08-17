@@ -1,0 +1,18 @@
+/* Abstracts */
+@import url(./abstracts/variables.css);
+
+/* Base */
+@import url(./base/global.css);
+@import url(./base/reset.css);
+
+/* Components */
+@import url(./components/popup.css);
+@import url(./components/question.css);
+@import url(./components/button.css);
+@import url(./components/result.css);
+
+/* Layouts */
+@import url(./layouts/main.css);
+@import url(./layouts/footer.css);
+
+

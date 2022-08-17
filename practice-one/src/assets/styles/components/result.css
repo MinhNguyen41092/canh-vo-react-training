@@ -1,0 +1,33 @@
+.result {
+  padding: 3rem;
+  font-size: 1.6rem;
+}
+
+.result-score {
+  text-align: center;
+  padding: 2rem;
+  font-size: 2rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  margin-bottom: 2rem;
+}
+
+.result-detail {
+  padding: 2rem;
+}
+
+.result-question {
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+.result-selected {
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: var(--btn-primary-color);
+}
+
+.result-answer {
+  font-weight: 500;
+  color: var(--primary-color);
+}
