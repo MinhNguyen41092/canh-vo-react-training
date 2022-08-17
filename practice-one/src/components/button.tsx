@@ -3,8 +3,10 @@ import React from "react";
 
 type ButtonProps = {
   text: string,
+  className: string,
+  style: {display: string},
   disabled: boolean,
-  nextQuestion: () => void
+  handleButton: () => void
 }
 
 type ButtonState = {}
@@ -15,15 +17,15 @@ class Button extends React.Component<ButtonProps, ButtonState> {
   }
   
   handleButton = () => {
-    this.props.nextQuestion()
+    this.props.handleButton()
   }
 
   render() {
-    const {disabled, text} = this.props
+    const {disabled, text, className, style} = this.props
 
     return (
       <div className="btn-section">
-        <button className="btn" disabled={disabled} onClick={this.handleButton}>{text}</button>
+        <button className={className} style={style} disabled={disabled} onClick={this.handleButton}>{text}</button>
       </div>
     )
   }

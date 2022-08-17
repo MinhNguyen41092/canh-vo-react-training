@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom'
+import Button from "./button";
 
 type PopupProps = {
   title: string,
@@ -54,17 +55,19 @@ class Popup extends React.Component<PopupProps, PopupState> {
         <div className="popup">
           <h1 className="popup-heading">{title}</h1>
           <p className="popup-text">{text}</p>
-          <button 
-            className="btn popup-btn" 
-            onClick={this.handlePopup}
+
+          <Button 
+            text={buttonText}
+            className = "btn popup-btn"
             style={displayStartquizBtn}
-            >
-              {buttonText}
-          </button>
-            <Link className="link" to={{pathname: "/result"}} 
-                  state={reusltData}>
-              <button className="btn popup-btn" style={displaySeeResultBtn}>See Result</button>
-            </Link>
+            disabled={false}
+            handleButton={this.handlePopup}
+          />
+          
+          <Link className="link" to={{pathname: "/result"}} 
+                state={reusltData}>
+            <button className="btn popup-btn" style={displaySeeResultBtn}>See Result</button>
+          </Link>
         </div>
       </div>
     )

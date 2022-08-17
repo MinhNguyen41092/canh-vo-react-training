@@ -1,5 +1,5 @@
 import React from "react";
-import { quizData } from "../apis/api";
+import getData from "../apis/api";
 import Popup from "../components/popup";
 import Question from "../components/question";
 import Footer from "./footer";
@@ -54,7 +54,7 @@ class Main extends React.Component<MainProps, MainState> {
   //
   async componentDidMount() {
     const {currentIndex} = this.state
-    const quizzData = await quizData
+    const quizzData = await getData()
     const question = quizzData[currentIndex]?.question
     const correct = quizzData[currentIndex]?.correct_answer
     const answer = quizzData[currentIndex]?.incorrect_answers
@@ -200,9 +200,11 @@ class Main extends React.Component<MainProps, MainState> {
         />
         
         <Button 
-          text='NEXT QUESTION' 
+          text='NEXT QUESTION'
+          className="btn"
+          style={{display: "inline"}}
           disabled={disable} 
-          nextQuestion={this.handleNextQuestion}
+          handleButton={this.handleNextQuestion}
         />
         <Footer />
       </>
