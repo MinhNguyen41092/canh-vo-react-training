@@ -26,8 +26,8 @@ function Result() {
           key={index}
           index={index}
           item={item}
-          listUserAnswer={resultData.listUserAnswer}
-          listAnswer={listAnswer}
+          userAnswer={resultData.listUserAnswer[index]}
+          answer={listAnswer[index]}
         />
       ))}
 

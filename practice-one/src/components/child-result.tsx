@@ -1,10 +1,10 @@
 import React from "react";
 
 type ChildResultProps = {
-  index: number,
-  item: string,
-  listUserAnswer: Array<string>,
-  listAnswer: Array<string>
+  index: number
+  item: string
+  userAnswer: string,
+  answer: string
 }
 
 type ChildResultState = {}
@@ -12,7 +12,7 @@ type ChildResultState = {}
 class ChildResult extends React.Component<ChildResultProps, ChildResultState> {
   
   render() {
-    const {index, item, listUserAnswer, listAnswer} = this.props
+    const {index, item, userAnswer, answer} = this.props
 
     return (
       <div className="result-detail">
@@ -23,12 +23,12 @@ class ChildResult extends React.Component<ChildResultProps, ChildResultState> {
 
         <p 
           className="result-selected" 
-          dangerouslySetInnerHTML={{__html:`Selected: ${listUserAnswer[index]}`}}
+          dangerouslySetInnerHTML={{__html:`Selected: ${userAnswer}`}}
         ></p>
 
         <p 
           className="result-answer" 
-          dangerouslySetInnerHTML={{__html:`Answer: ${listAnswer[index]}`}}
+          dangerouslySetInnerHTML={{__html:`Answer: ${answer}`}}
         ></p>
       </div>
     )
