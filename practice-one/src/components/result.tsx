@@ -1,5 +1,5 @@
 import { useLocation, Link } from "react-router-dom";
-import ChildDetails from "./child-details"
+import ChildResult from "./child-result"
 
 type resultData = {
   listQuestion: Array<string>
@@ -22,20 +22,13 @@ function Result() {
       <h3 className="result-score">You got: {resultData.score} out of {resultData.listQuestion.length} questions right.</h3>
       
       {resultData.listQuestion.map((item, index) => (
-        <div className="result-details" key={index}>
-          <ChildDetails 
-            classname="result-question"
-            dangerouslySetInnerHTML={{__html:`Question ${index+1}: ${item}`}}
-          />
-          <ChildDetails 
-            classname="result-selected"
-            dangerouslySetInnerHTML={{__html:`Selected: ${resultData.listUserAnswer[index]}`}}
-          />
-          <ChildDetails 
-            classname="result-answer"
-            dangerouslySetInnerHTML={{__html:`Answer: ${listAnswer[index]}`}}
-          />
-        </div>
+        <ChildResult
+          key={index}
+          index={index}
+          item={item}
+          listUserAnswer={resultData.listUserAnswer}
+          listAnswer={listAnswer}
+        />
       ))}
 
       <Link className="link" to={{pathname: "/"}} >

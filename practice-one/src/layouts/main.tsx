@@ -1,5 +1,5 @@
 import React from "react";
-import getData from "../apis/api";
+import {getData} from "../apis/api";
 import Popup from "../components/popup";
 import Question from "../components/question";
 import Footer from "./footer";
