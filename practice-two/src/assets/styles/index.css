@@ -9,9 +9,10 @@
 @import url(./components/userForm.css);
 @import url(./components/actionButton.css);
 @import url(./components/switchButton.css);
+@import url(./components/navbar.css);
 
 /* Layouts */
-@import url(./layouts/header.css);
 @import url(./layouts/main.css);
 
-
+/* Pages */
+@import url(./pages/dashboard.css);
