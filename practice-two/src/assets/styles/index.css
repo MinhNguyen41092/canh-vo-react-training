@@ -7,8 +7,7 @@
 
 /* Components */
 @import url(./components/userForm.css);
-@import url(./components/actionButton.css);
-@import url(./components/switchButton.css);
+@import url(./components/button.css);
 @import url(./components/navbar.css);
 
 /* Layouts */
@@ -16,3 +15,4 @@
 
 /* Pages */
 @import url(./pages/dashboard.css);
+@import url(./pages/addUser.css);

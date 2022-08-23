@@ -1,59 +1,42 @@
-.question {
-  background-color: var(--primary-color);
-  padding: 2rem;
-  color: var(--secondary-color);
+.user-form {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 1rem;
   text-align: center;
 }
 
-.number-question {
-  font-size: 2rem;
-  padding: 1.2rem;
+.form-group {
+  padding: 0.5rem;
+  margin-bottom: 1.6rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.question-text {
+.form-input-text {
+  border-bottom: solid 0.1rem var(--secondary-color);
+}
+
+.form-label {
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.form-input {
   font-size: 1.6rem;
 }
 
-.answers {
-  margin-top: 5rem;
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -3rem;
-}
-
-.answer, .right, .wrong {
-  margin-right: 3rem;
-  margin-bottom: 2rem;
-  width: calc(50% - 3rem);
-  text-align: center;
-  padding: 3rem;
-  font-size: 2rem;
-  font-weight: 600;
-  transition: 0.2s;
-}
-.answer {
-  border: solid 0.2rem var(--primary-color);
+.dark .form-input {
+  background-color: var(--dark-color);
   color: var(--primary-color);
-  cursor: pointer;
 }
 
-.answer:hover {
-  transform: scale(1.01);
+.preview-avatar {
+  width: 20%;
+  margin-top: 1rem;
 }
 
-.right {
-  border: solid 0.2rem var(--secondary-color);
-  background-color: var(--right-color);
-  color: var(--secondary-color);
-}
-
-.wrong {
-  border: solid 0.2rem var(--secondary-color);
-  background-color: var(--wrong-color);
-  color: var(--secondary-color);
-}
-
-.selected {
-  border: solid 0.3rem var(--right-color);
-  color: var(--right-color);
+.add-btn {
+  background-color: var(--btn-primary-color);
 }

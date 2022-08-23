@@ -1,12 +1,20 @@
 {
-  "user": [
+  "users": [
     {
-      "id": 2822,
-      "name": "Gopee Saini",
-      "email": "gopee_saini@mayert-hudson.info",
+      "name": "Canh",
+      "email": "canhvo0603@gmail.com",
       "gender": "male",
       "status": "inactive",
-      "avatar": ""
-      }
+      "avatar": "blob:http://localhost:3010/716b3320-efbf-4134-a2f9-f70d49d1ca13",
+      "id": 5
+    },
+    {
+      "name": "a",
+      "email": "a@gmail.com",
+      "gender": "male",
+      "status": "inactive",
+      "avatar": "blob:http://localhost:3010/10f9229e-f895-4599-83fc-0f8f7c527ac4",
+      "id": 6
+    }
   ]
 }
