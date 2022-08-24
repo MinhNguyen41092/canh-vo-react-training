@@ -6,7 +6,7 @@ import Context from '../../store/Context'
 import { NavLink } from 'react-router-dom'
 
 function Navbar() {
-  const context = useContext(Context)
+  const themeContext = useContext(Context)
 
   return(
     <nav className="container nav-bar">
@@ -19,8 +19,8 @@ function Navbar() {
       <div className=" nav-bar-right">
         <label htmlFor="theme-switch">Dark Mode</label>
         <Switch 
-          checked = {context.theme === 'dark'} 
-          onChange={context.toggleTheme}
+          checked = {themeContext.theme === 'dark'} 
+          onChange={themeContext.toggleTheme}
           onColor="#86d3ff"
           uncheckedIcon={false}
           checkedIcon={false}

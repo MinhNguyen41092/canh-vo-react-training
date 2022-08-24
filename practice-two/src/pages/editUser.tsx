@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import UserForm from '../components/Form/userForm'
-import { useNavigate } from 'react-router-dom'
-import { addUser } from '../services/action'
+import { useNavigate, useParams } from 'react-router-dom'
+import { getUser, editUser } from '../services/action'
 
-function AddUser() {
+function EditUser() {
   const initUserValue = {
     "name": "",
     "email": "",
@@ -13,8 +13,19 @@ function AddUser() {
   }
 
   const [user, setUser] = useState(initUserValue)
-  const navigate = useNavigate();
   const [error, setError] = useState('')
+  const navigate = useNavigate()
+  const { id } = useParams()
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
+  // Get user selected
+  const getUserData = async () => {
+    const res = await getUser(id)
+    setUser(res?.data)
+  }
 
   const handleValueChange = (key: string, value: string) => {
     setUser({...user, [key]: value})
@@ -23,24 +34,27 @@ function AddUser() {
   const handleAddUser = async (e: any) => {
     e.preventDefault()
     if(!!user.name && !!user.email && !!user.gender && !!user.avatar) {
-      await addUser(user)
+      await editUser(user, id)
       navigate('/')
     } else setError('Please complete all fields correctly')
   }
 
   return (
     <div className="container add-user">
-      <h2 className="add-user-heading">Add User</h2>
+      <h2 className="add-user-heading">Edit User</h2>
       <UserForm 
         handleValueChange = {handleValueChange}
         handleAddUser = {handleAddUser}
         error={error}
+        btnText="Save"
+        name={user.name}
+        email={user.email}
         gender={user.gender}
         status={user.status}
-        btnText="Add User"
+        userAvatar={user.avatar}
       />
     </div>
   )
 }
 
-export default AddUser
+export default EditUser

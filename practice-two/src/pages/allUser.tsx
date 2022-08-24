@@ -1,45 +1,46 @@
 import React, { useEffect, useState } from 'react'
-import { getUsers } from '../services/action'
+import { getUsers, deleteUser } from '../services/action'
+import { useNavigate } from "react-router-dom";
+import UserTable from '../components/Table/userTable'
+import Loading from '../components/Loading/loading'
 
 function AllUser() {
-
   const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUsersDetails()
   }, [])
 
+  // Get all users
   const getUsersDetails = async () => {
     const res = await getUsers()
     setUsers(res?.data)
+    setLoading(true)
+  }
+
+  // Handle edit user 
+  const handleEditUser = (e: any, userId: number) => {
+    navigate(`/edit/${userId}`)
+  }
+
+  // Handle delete user
+  const handleDeleteUser = async (e: any, userId: number) => {
+    await deleteUser(userId)
+    getUsersDetails()
   }
 
   return (
-    <table>
-      <tbody>
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Gender</th>
-          <th>Status</th>
-          <th>Avatar</th>
-          <th>Action</th>
-        </tr>
-        {
-            users.map((user: any) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.gender}</td>
-                <td>{user.status}</td>
-                <td><img src={user.avatar} alt="user avatar" /></td>
-              </tr>
-            ))
-          }
-      </tbody>
-    </table>
+    <>
+      {loading ? <UserTable 
+        users = {users} 
+        handleEditUser={handleEditUser}
+        handleDeleteUser={handleDeleteUser}
+      /> 
+      : <Loading />}
+    </>
   )
 }
 

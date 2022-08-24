@@ -1,4 +1,4 @@
-.button {
+.btn {
   padding: 1rem;
   border-radius: 0.5rem;
   font-size: 1.4rem;
@@ -6,6 +6,24 @@
   color: white;
 }
 
-.button:hover {
+.btn:hover {
   opacity: 0.8;
+}
+
+.add-btn {
+  background-color: var(--btn-primary-color);
+}
+
+.edit-btn {
+  background-color: var(--btn-warning-color);
+}
+
+.delete-btn {
+  background-color: var(--btn-danger-color);
+}
+
+.btn:disabled {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  cursor: default;
 }
