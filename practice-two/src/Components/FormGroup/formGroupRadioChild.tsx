@@ -2,9 +2,22 @@ import React from "react";
 import Label from "../Label/label";
 import Input from "../Input/input";
 
-function FormGroupRadioChild(props: any) {
+interface FormGroupRadioChildProps {
+  labelHeading: string
+  labelClassname: string 
+  idInput: Array<string>
+  name: string
+  value: Array<string>
+  checked: Array<boolean>
+  handleInput(e: any): void
+  labelText: Array<string>
+  htmlFor: Array<string>
+}
+
+function FormGroupRadioChild(props: FormGroupRadioChildProps) {
   const {
-    labelHeading, 
+    labelHeading,
+    labelClassname, 
     idInput,
     name,
     value,
@@ -18,6 +31,7 @@ function FormGroupRadioChild(props: any) {
     <div className="form-group">
       <Label 
         text={labelHeading}
+        className={labelClassname}
       />
       <div className="form-input">
         <div className="input-group">
@@ -33,6 +47,7 @@ function FormGroupRadioChild(props: any) {
           <Label 
             text={labelText[0]}
             htmlFor={htmlFor[0]}
+            className={labelClassname}
           />
         </div>
         <div className="input-group">
@@ -48,6 +63,7 @@ function FormGroupRadioChild(props: any) {
           <Label 
             text={labelText[1]}
             htmlFor={htmlFor[1]}
+            className={labelClassname}
           />
         </div>
       </div>

@@ -1,8 +1,13 @@
-import { link } from "fs"
-import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import React from "react"
 
-function ActionButton(props: any) {
+interface ActionButtonProps {
+  className: string
+  text: string
+  userId?: number
+  handleButton(e: any, userId: number | undefined): void
+}
+
+function ActionButton(props: ActionButtonProps) {
   const {className, handleButton, text, userId} = props
 
   return (

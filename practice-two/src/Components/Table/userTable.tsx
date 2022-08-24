@@ -1,9 +1,25 @@
 import React from "react";
 import ActionButton from "../Button/actionButton";
 
-function UserTable(props: any) {
-  const {users, handleEditUser, handleDeleteUser} = props
+interface User {
+  id: number
+  name: string,
+  email: string,
+  gender: string,
+  status: string,
+  avatar: string
+}
 
+interface UserTableProps {
+  users: Array<User>
+  query: string
+  handleEditUser(e: any, userId: number): void
+  handleDeleteUser(e: any, userId: number): void
+}
+
+function UserTable(props: UserTableProps) {
+  const {users, handleEditUser, handleDeleteUser, query} = props
+  
   return (
     <table className="container user-table">
       <tbody>
@@ -16,8 +32,9 @@ function UserTable(props: any) {
           <th>Avatar</th>
           <th>Action</th>
         </tr>
-        {
-            users.map((user: any) => (
+          {
+            users.filter((user: User) => user.name.toLowerCase().includes(query))
+            .map((user: User) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.name}</td>

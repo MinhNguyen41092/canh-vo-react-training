@@ -4,7 +4,19 @@ import ActionButton from "../Button/actionButton"
 import FormGroupBasic from "../FormGroup/formGroupBasic"
 import FormGroupRadioChild from "../FormGroup/formGroupRadioChild"
 
-function UserForm(props: any) {
+interface UserFormProps {
+  handleValueChange(key: string, value: string): void
+  handleAddUser(e: any): void
+  error: string
+  gender: string
+  status: string
+  btnText: string
+  name?: string
+  email?: string
+  userAvatar?: string
+}
+
+function UserForm(props: UserFormProps) {
 
   const themeContext = useContext(Context)
   const [avatar, setAvatar] = useState()
@@ -57,6 +69,7 @@ function UserForm(props: any) {
       <FormGroupBasic 
         labelText="Name"
         labelHtmlFor="user-name"
+        labelClassname="form-label"
         inputType="text"
         inputId="user-name"
         inputName="name"
@@ -68,6 +81,7 @@ function UserForm(props: any) {
       <FormGroupBasic 
         labelText="Email"
         labelHtmlFor="user-email"
+        labelClassname="form-label"
         inputType="email"
         inputId="user-email"
         inputName="email"
@@ -77,9 +91,25 @@ function UserForm(props: any) {
         errorEmail={errorEmail}
       />
 
+      <FormGroupBasic 
+        labelText="Choose Image"
+        labelHtmlFor="user-img"
+        labelClassname="form-label img-label"
+        inputType="file"
+        inputId="user-img"
+        inputName="avatar"
+        accept="image/*"
+        inputClassName="input img-input"
+        handleInput={onValueImageChange}
+        display={display}
+        userAvatar={userAvatar}
+        avatar={avatar}
+      />
+
       <div className="form-group-radio">
         <FormGroupRadioChild 
           labelHeading="Gender"
+          labelClassname="form-label"
           idInput={["male", "female"]}
           name="gender"
           value={["Male", "Female"]}
@@ -91,6 +121,7 @@ function UserForm(props: any) {
 
         <FormGroupRadioChild 
           labelHeading="Status"
+          labelClassname="form-label"
           idInput={["inactive", "active"]}
           name="status"
           value={["Inactive", "Active"]}
@@ -100,21 +131,6 @@ function UserForm(props: any) {
           htmlFor={["inactive", "active"]}
         />
       </div>
-
-       <FormGroupBasic 
-        labelText="ChooseImage"
-        labelHtmlFor="user-img"
-        inputType="file"
-        inputId="user-img"
-        inputName="avatar"
-        accept="image/*"
-        inputClassName="input text-input"
-        handleInput={onValueImageChange}
-        errorEmail={errorEmail}
-        display={display}
-        userAvatar={userAvatar}
-        avatar={avatar}
-      />
 
       <ActionButton 
         text={btnText} 

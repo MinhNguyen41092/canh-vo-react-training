@@ -11,6 +11,8 @@
 @import url(./components/navbar.css);
 @import url(./components/userTable.css);
 @import url(./components/loading.css);
+@import url(./components/input.css);
+@import url(./components/label.css);
 
 /* Pages */
 @import url(./pages/dashboard.css);

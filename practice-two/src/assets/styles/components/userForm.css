@@ -45,6 +45,22 @@
   border-bottom: solid 0.1rem var(--secondary-color);
 }
 
+.img-input {
+  display: none;
+}
+
+.img-label {
+  background-color: var(--btn-warning-color);
+  padding: 0.6rem;
+  border-radius: 1rem;
+  width: 11rem;
+  text-align: center;
+}
+
+.img-label:hover {
+  opacity: 0.8;
+}
+
 .dark .input {
   background-color: var(--dark-color);
   color: var(--primary-color);
