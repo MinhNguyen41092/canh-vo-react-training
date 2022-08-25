@@ -13,6 +13,7 @@
 @import url(./components/loading.css);
 @import url(./components/input.css);
 @import url(./components/label.css);
+@import url(./components/confirmPopup.css);
 
 /* Pages */
 @import url(./pages/dashboard.css);

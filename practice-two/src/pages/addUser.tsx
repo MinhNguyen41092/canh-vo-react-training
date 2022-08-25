@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import UserForm from '../components/Form/userForm'
 import { useNavigate } from 'react-router-dom'
 import { addUser } from '../services/action'
+import UserForm from '../components/Form/userForm'
+import Loading from '../components/Loading/loading'
 
 function AddUser() {
   const initUserValue = {
@@ -12,17 +13,23 @@ function AddUser() {
     "avatar": ""
   }
 
-  const [user, setUser] = useState(initUserValue)
   const navigate = useNavigate();
-  const [error, setError] = useState('')
 
+  const [user, setUser] = useState(initUserValue)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  // Get value input
   const handleValueChange = (key: string, value: string) => {
     setUser({...user, [key]: value})
   }
 
+  // Handle add user
   const handleAddUser = async (e: any) => {
     e.preventDefault()
     if(!!user.name && !!user.email && !!user.gender && !!user.avatar) {
+      setLoading(true)
+      setError('')
       await addUser(user)
       navigate('/')
     } else setError('Please complete all fields correctly')
@@ -30,6 +37,7 @@ function AddUser() {
 
   return (
     <div className="container add-user">
+      {loading && <Loading />}
       <h2 className="add-user-heading">Add User</h2>
       <UserForm 
         handleValueChange = {handleValueChange}

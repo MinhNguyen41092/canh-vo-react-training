@@ -11,8 +11,7 @@ function Navbar() {
   return(
     <nav className="container nav-bar">
       <div className="nav-bar-left">
-        <h1 className="nav-logo">User Management</h1>
-        <NavLink to="/" className="nav-link">All User</NavLink>
+        <NavLink to="/" className="nav-link"><h1 className="nav-logo">User Management</h1></NavLink>
         <NavLink to="/add" className="nav-link">Add User</NavLink>
       </div>
 

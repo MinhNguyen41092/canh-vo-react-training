@@ -10,6 +10,8 @@ function AllUser() {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
   const [query, setQuery] = useState("")
+  const [display, setDisplay] = useState(false)
+  const [id, setId] = useState(0)
 
   const navigate = useNavigate();
 
@@ -19,9 +21,10 @@ function AllUser() {
 
   // Get all users
   const getUsersDetails = async () => {
+    setLoading(true)
     const res = await getUsers()
     setUsers(res?.data)
-    setLoading(true)
+    setLoading(false)
   }
 
   // Handle edit user 
@@ -29,12 +32,27 @@ function AllUser() {
     navigate(`/edit/${userId}`)
   }
 
-  // Handle delete user
-  const handleDeleteUser = async (e: any, userId: number) => {
-    await deleteUser(userId)
-    getUsersDetails()
+  // Close popup
+  const handleHidePopupDelete = () => {
+    setDisplay(false)
   }
 
+  // Show popup
+  const handleShowPopupDelete = (e: any, userId: number) => {
+    setDisplay(true)
+    setId(userId)
+  }
+
+  // Handle delete user
+  const handleDeleteUser = async (e: any, userId: number) => {
+    setLoading(true)
+    await deleteUser(userId)
+    getUsersDetails()
+    setLoading(false)
+    setDisplay(false)
+  }
+ 
+  // Handle search input
   const handleSearchInput = (e: any) => {
     setQuery(e.target.value)
   }
@@ -57,13 +75,21 @@ function AllUser() {
         />
       </div>
 
-      {loading ? <UserTable 
-        users={users}
-        query={query} 
-        handleEditUser={handleEditUser}
-        handleDeleteUser={handleDeleteUser}
-      /> 
-      : <Loading />}
+      {
+        loading && <Loading />
+      }
+
+      <UserTable 
+          users={users}
+          query={query}
+          loading={loading}
+          display={display}
+          id={id}
+          handleHidePopupDelete={handleHidePopupDelete}
+          handleShowPopupDelete={handleShowPopupDelete}
+          handleEditUser={handleEditUser}
+          handleDeleteUser={handleDeleteUser}
+        /> 
     </>
   )
 }

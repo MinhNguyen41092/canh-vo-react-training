@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import UserForm from '../components/Form/userForm'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getUser, editUser } from '../services/action'
+import UserForm from '../components/Form/userForm'
+import Loading from '../components/Loading/loading'
 
 function EditUser() {
   const initUserValue = {
@@ -14,6 +15,7 @@ function EditUser() {
 
   const [user, setUser] = useState(initUserValue)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const { id } = useParams()
 
@@ -23,17 +25,23 @@ function EditUser() {
 
   // Get user selected
   const getUserData = async () => {
+    setLoading(true)
     const res = await getUser(id)
     setUser(res?.data)
+    setLoading(false)
   }
 
+  // Get value input
   const handleValueChange = (key: string, value: string) => {
     setUser({...user, [key]: value})
   }
 
-  const handleAddUser = async (e: any) => {
+  // Handle edit user
+  const handleEditUser = async (e: any) => {
     e.preventDefault()
     if(!!user.name && !!user.email && !!user.gender && !!user.avatar) {
+      setLoading(true)
+      setError('')
       await editUser(user, id)
       navigate('/')
     } else setError('Please complete all fields correctly')
@@ -41,10 +49,11 @@ function EditUser() {
 
   return (
     <div className="container add-user">
+      {loading && <Loading />}
       <h2 className="add-user-heading">Edit User</h2>
       <UserForm 
         handleValueChange = {handleValueChange}
-        handleAddUser = {handleAddUser}
+        handleAddUser = {handleEditUser}
         error={error}
         btnText="Save"
         name={user.name}

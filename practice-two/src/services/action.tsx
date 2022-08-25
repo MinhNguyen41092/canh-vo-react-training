@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/users'
+const API_URL = 'https://canh-fake-user-api.herokuapp.com/users'
 
 export const getUsers = async () => {
   try {

@@ -4,7 +4,7 @@ interface ActionButtonProps {
   className: string
   text: string
   userId?: number
-  handleButton(e: any, userId: number | undefined): void
+  handleButton(e?: any, userId?: number | undefined): void
 }
 
 function ActionButton(props: ActionButtonProps) {
