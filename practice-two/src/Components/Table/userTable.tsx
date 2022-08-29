@@ -1,20 +1,15 @@
 import React from "react"
 
+// Interface
+import { IUser } from "../../interfaces/IUser"
+
 // Components
 import ActionButton from "../Button/ActionButton"
 import ConfirmPopup from "../Popup/ConfirmPopup"
 
-interface User {
-  id: number
-  name: string
-  email: string
-  gender: string
-  status: string
-  avatar: string
-}
 
 interface UserTableProps {
-  users: Array<User>
+  users: IUser[]
   query: string
   loading: boolean
   display: boolean
@@ -55,8 +50,8 @@ function UserTable(props: UserTableProps) {
             <th>Action</th>
           </tr>
             {
-              users.filter((user: User) => user.name.toLowerCase().includes(query))
-              .map((user: User) => (
+              users.filter((user: IUser) => user.name.toLowerCase().includes(query))
+              .map((user: IUser) => (
                 <tr key={user.id}>
                   <td>{user.id}</td>
                   <td>{user.name}</td>

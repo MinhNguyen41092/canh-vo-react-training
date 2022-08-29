@@ -13,7 +13,7 @@ import Label from "../components/Label/Label"
 import Input from "../components/Input/Input"
 
 // Interface
-import { IUser } from "../interface/IUser"
+import { IUser } from "../interfaces/IUser"
 
 const initUsers: IUser[] = []
 
@@ -99,9 +99,7 @@ function AllUser() {
 
       <p className="error-msg">{error}</p>
 
-      {
-        loading && <Loading />
-      }
+      { loading && <Loading /> }
 
       <UserTable 
           users={users}

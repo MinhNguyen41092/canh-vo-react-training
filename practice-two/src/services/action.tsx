@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Interface
-import { IUser } from '../interface/IUser';
+import { IUser } from '../interfaces/IUser';
 
 const API_URL = 'https://canh-fake-user-api.herokuapp.com/users'
 
@@ -10,7 +10,7 @@ export const getUsers = async (): Promise<IUser[]> => {
   return res.data
 }
 
-export const addUser = async (data: object) => {
+export const addUser = async (data: IUser) => {
   return await axios.post(API_URL, data);
 }
 
@@ -19,7 +19,7 @@ export const getUser = async (id: string | undefined) => {
   return res.data
 }
 
-export const editUser = async (data: object, id?: string) => {
+export const editUser = async (data: IUser, id?: string) => {
   return await axios.put(`${API_URL}/${id}`, data);
 }
 

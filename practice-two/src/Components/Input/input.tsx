@@ -35,7 +35,7 @@ function Input(props: InputProps) {
       checked={checked}
       className={className}
       placeholder={placeholder}
-      onChange={(e) => handleInputChange(e)} 
+      onChange={handleInputChange} 
   />
   )
 }

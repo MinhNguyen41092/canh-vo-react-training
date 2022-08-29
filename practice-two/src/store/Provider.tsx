@@ -3,7 +3,8 @@ import React, { useState } from "react";
 // Context
 import Context from "./Context";
 
-enum Theme { Light = 'light', Dark = 'dark' }
+// Enum
+import { Theme } from "../enums/theme";
 
 function Provider({ children }: any) {
   const {Light, Dark} = Theme

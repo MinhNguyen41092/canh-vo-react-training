@@ -9,10 +9,12 @@ import Switch from "react-switch"
 // Context
 import Context from "../../store/Context"
 
-
+// Enum
+import { Theme } from "../../enums/theme"
 
 function Navbar() {
   const themeContext = useContext(Context)
+  const {Dark} = Theme
 
   return(
     <nav className="container nav-bar">
@@ -24,7 +26,7 @@ function Navbar() {
       <div className=" nav-bar-right">
         <label htmlFor="theme-switch">Dark Mode</label>
         <Switch 
-          checked={themeContext.theme === 'dark'} 
+          checked={themeContext.theme === Dark} 
           onChange={themeContext.toggleTheme}
           onColor="#86d3ff"
           uncheckedIcon={false}
