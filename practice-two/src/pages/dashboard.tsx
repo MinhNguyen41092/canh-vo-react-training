@@ -1,11 +1,15 @@
-import React from 'react';
-import { useContext } from 'react'
-import Context from '../store/Context';
-import Navbar from '../components/Navbar/navbar';
-import AllUser from './allUser';
-import AddUser from './addUser';
-import EditUser from './editUser';
+import React, { useContext } from "react"
 
+// Context
+import Context from "../store/Context"
+
+// Components
+import Navbar from "../components/Navbar/Navbar"
+import AllUser from "./AllUser"
+import AddUser from "./AddUser"
+import EditUser from "./EditUser"
+
+// Router
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 function Dashboard() {

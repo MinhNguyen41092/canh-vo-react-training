@@ -1,43 +1,28 @@
 import axios from 'axios';
 
+// Interface
+import { IUser } from '../interface/IUser';
+
 const API_URL = 'https://canh-fake-user-api.herokuapp.com/users'
 
-export const getUsers = async () => {
-  try {
-    return await axios.get(API_URL);
-  } catch (error) {
-    console.log('Error while calling getUsers api')
-  }
+export const getUsers = async (): Promise<IUser[]> => {
+  const res =  await axios.get(API_URL);
+  return res.data
 }
 
-export const addUser = async (data: any) => {
-  try {
-      return await axios.post(API_URL, data);
-  } catch (error) {
-      console.log('Error while calling addUser api')
-  }
+export const addUser = async (data: object) => {
+  return await axios.post(API_URL, data);
 }
 
-export const getUser = async (data: any) => {
-  try {
-      return await axios.get(`${API_URL}/${data}`);
-  } catch (error) {
-      console.log('Error while calling getUser api')
-  }
+export const getUser = async (id: string | undefined) => {
+  const res = await axios.get(`${API_URL}/${id}`);
+  return res.data
 }
 
-export const editUser = async (data: any, id?: string) => {
-  try {
-      return await axios.put(`${API_URL}/${id}`, data);
-  } catch (error) {
-      console.log('Error while calling editUser api')
-  }
+export const editUser = async (data: object, id?: string) => {
+  return await axios.put(`${API_URL}/${id}`, data);
 }
 
 export const deleteUser = async (id?: number) => {
-  try {
-      return await axios.delete(`${API_URL}/${id}`);
-  } catch (error) {
-      console.log('Error while calling deleteUser api')
-  }
+  return await axios.delete(`${API_URL}/${id}`);
 }

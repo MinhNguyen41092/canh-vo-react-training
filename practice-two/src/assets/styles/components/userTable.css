@@ -28,3 +28,8 @@
   margin-right: 2rem;
 }
 
+.error-msg {
+  font-size: 1.6rem;
+  color: var(--btn-warning-color);
+  text-align: center;
+}

@@ -1,19 +1,22 @@
 import React from "react"
-import ActionButton from "../Button/actionButton"
-import Loading from "../Loading/loading"
+
+// Components
+import ActionButton from "../Button/ActionButton"
+import Loading from "../Loading/Loading"
 
 interface ConfirmPopupProps {
   heading: string
   text: string
   loading: boolean
   id: number
+  error: string
   handleHidePopupDelete(): void
   handleDeleteUser(e: any, userId: number): void
 }
 
 function ConfirmPopup(props: ConfirmPopupProps) {
   
-  const {heading, text, handleHidePopupDelete, id, handleDeleteUser, loading} = props
+  const {heading, text, handleHidePopupDelete, id, handleDeleteUser, loading, error} = props
 
   return (
     <div className="confirm-popup">
@@ -33,14 +36,15 @@ function ConfirmPopup(props: ConfirmPopupProps) {
             className="confirm-btn"
             text="Confirm"
             userId={id}
-            handleButton={handleDeleteUser}
+            handleClick={handleDeleteUser}
           />
           <ActionButton 
             className="cancel-btn"
             text="Cancel"
-            handleButton={handleHidePopupDelete}
+            handleClick={handleHidePopupDelete}
           />
         </div>
+        <p className="error-msg">{error}</p>
       </div>
     </div>
   )

@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import ActionButton from "../Button/actionButton";
-import ConfirmPopup from "../Popup/confirmPopup";
+import React from "react"
+
+// Components
+import ActionButton from "../Button/ActionButton"
+import ConfirmPopup from "../Popup/ConfirmPopup"
 
 interface User {
   id: number
@@ -21,6 +23,7 @@ interface UserTableProps {
   handleShowPopupDelete(e: any, userId: number): void
   handleEditUser(e: any, userId: number): void
   handleDeleteUser(e: any, userId: number): void
+  error: string
 }
 
 function UserTable(props: UserTableProps) { 
@@ -34,7 +37,8 @@ function UserTable(props: UserTableProps) {
     handleEditUser, 
     handleDeleteUser, 
     handleHidePopupDelete, 
-    handleShowPopupDelete
+    handleShowPopupDelete,
+    error
   } = props
   
   return (
@@ -65,14 +69,14 @@ function UserTable(props: UserTableProps) {
                       text="Edit" 
                       className="edit-btn"
                       userId={user.id}
-                      handleButton={handleEditUser}
+                      handleClick={handleEditUser}
                       
                     />
                     <ActionButton 
                       text="Delete" 
                       className="delete-btn"
                       userId={user.id}
-                      handleButton={handleShowPopupDelete}
+                      handleClick={handleShowPopupDelete}
                     />
                   </td>
                 </tr>
@@ -81,17 +85,17 @@ function UserTable(props: UserTableProps) {
         </tbody>
       </table>
 
-      {
-        display && 
+      { display && ( 
         <ConfirmPopup 
           heading="Confirm Delete"
           text="Do you want to delete this User?"
           loading={loading}
           id={id}
+          error={error}
           handleHidePopupDelete={handleHidePopupDelete}
           handleDeleteUser={handleDeleteUser}
-        />
-      }
+        /> 
+      )}
     </>
   )
 }

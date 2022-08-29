@@ -1,9 +1,15 @@
-import React from 'react';
-import { useContext } from 'react'
-import Switch from 'react-switch'
-import Context from '../../store/Context'
+import React, { useContext } from "react"
 
-import { NavLink } from 'react-router-dom'
+// Link
+import { NavLink } from "react-router-dom"
+
+// Components
+import Switch from "react-switch"
+
+// Context
+import Context from "../../store/Context"
+
+
 
 function Navbar() {
   const themeContext = useContext(Context)
@@ -18,7 +24,7 @@ function Navbar() {
       <div className=" nav-bar-right">
         <label htmlFor="theme-switch">Dark Mode</label>
         <Switch 
-          checked = {themeContext.theme === 'dark'} 
+          checked={themeContext.theme === 'dark'} 
           onChange={themeContext.toggleTheme}
           onColor="#86d3ff"
           uncheckedIcon={false}

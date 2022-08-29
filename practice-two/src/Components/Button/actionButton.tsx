@@ -4,16 +4,16 @@ interface ActionButtonProps {
   className: string
   text: string
   userId?: number
-  handleButton(e?: any, userId?: number | undefined): void
+  handleClick(e?: any, userId?: number | undefined): void
 }
 
 function ActionButton(props: ActionButtonProps) {
-  const {className, handleButton, text, userId} = props
+  const {className, handleClick, text, userId} = props
 
   return (
     <button 
       className={`btn ${className}`} 
-      onClick={(e) => handleButton(e, userId)}
+      onClick={(e) => handleClick(e, userId)}
       >
         {text}
       </button>

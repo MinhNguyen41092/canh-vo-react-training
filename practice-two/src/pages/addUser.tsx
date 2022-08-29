@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { addUser } from '../services/action'
-import UserForm from '../components/Form/userForm'
-import Loading from '../components/Loading/loading'
+import React, { useState } from "react"
+
+// Navigate
+import { useNavigate } from "react-router-dom"
+
+// Services
+import { addUser } from "../services/action"
+
+// Components
+import UserForm from "../components/Form/UserForm"
+import Loading from "../components/Loading/Loading"
 
 function AddUser() {
   const initUserValue = {
@@ -14,7 +20,6 @@ function AddUser() {
   }
 
   const navigate = useNavigate();
-
   const [user, setUser] = useState(initUserValue)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -30,8 +35,13 @@ function AddUser() {
     if(!!user.name && !!user.email && !!user.gender && !!user.avatar) {
       setLoading(true)
       setError('')
-      await addUser(user)
-      navigate('/')
+      try {
+        await addUser(user)
+        navigate('/')
+        setError('')
+      } catch {
+        setError('Error while calling api')
+      }
     } else setError('Please complete all fields correctly')
   }
 
@@ -40,8 +50,8 @@ function AddUser() {
       {loading && <Loading />}
       <h2 className="add-user-heading">Add User</h2>
       <UserForm 
-        handleValueChange = {handleValueChange}
-        handleAddUser = {handleAddUser}
+        handleValueChange={handleValueChange}
+        handleAddUser={handleAddUser}
         error={error}
         gender={user.gender}
         status={user.status}

@@ -1,17 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { getUsers, deleteUser } from '../services/action'
-import { useNavigate } from "react-router-dom";
-import UserTable from '../components/Table/userTable'
-import Loading from '../components/Loading/loading'
-import Label from '../components/Label/label';
-import Input from '../components/Input/input';
+import React, { useEffect, useState } from "react"
 
-function AllUser() {
-  const [users, setUsers] = useState([])
+// Services
+import { getUsers, deleteUser } from "../services/action"
+
+// Navigate
+import { useNavigate } from "react-router-dom"
+
+// Components
+import UserTable from "../components/Table/UserTable"
+import Loading from "../components/Loading/Loading"
+import Label from "../components/Label/Label"
+import Input from "../components/Input/Input"
+
+// Interface
+import { IUser } from "../interface/IUser"
+
+const initUsers: IUser[] = []
+
+function AllUser() { 
+  const [users, setUsers] = useState(initUsers)
   const [loading, setLoading] = useState(false)
   const [query, setQuery] = useState("")
   const [display, setDisplay] = useState(false)
   const [id, setId] = useState(0)
+  const [error, setError] = useState('')
 
   const navigate = useNavigate();
 
@@ -22,8 +34,13 @@ function AllUser() {
   // Get all users
   const getUsersDetails = async () => {
     setLoading(true)
-    const res = await getUsers()
-    setUsers(res?.data)
+    try {
+      const data = await getUsers()
+      setUsers(data)
+      setError('')
+  } catch {
+    setError('Error while calling api')
+  }
     setLoading(false)
   }
 
@@ -46,10 +63,15 @@ function AllUser() {
   // Handle delete user
   const handleDeleteUser = async (e: any, userId: number) => {
     setLoading(true)
-    await deleteUser(userId)
-    getUsersDetails()
+    try {
+      await deleteUser(userId)
+      getUsersDetails()
+      setError('')
+      setDisplay(false)
+    } catch {
+      setError('Error while calling api')
+    }
     setLoading(false)
-    setDisplay(false)
   }
  
   // Handle search input
@@ -71,9 +93,11 @@ function AllUser() {
           placeholder="Search..."
           name="search"
           className="search-input"
-          handleInput={handleSearchInput}
+          handleInputChange={handleSearchInput}
         />
       </div>
+
+      <p className="error-msg">{error}</p>
 
       {
         loading && <Loading />
@@ -89,6 +113,7 @@ function AllUser() {
           handleShowPopupDelete={handleShowPopupDelete}
           handleEditUser={handleEditUser}
           handleDeleteUser={handleDeleteUser}
+          error={error}
         /> 
     </>
   )

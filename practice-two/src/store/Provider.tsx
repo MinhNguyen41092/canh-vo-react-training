@@ -1,12 +1,16 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from "react";
+
+// Context
 import Context from "./Context";
 
+enum Theme { Light = 'light', Dark = 'dark' }
+
 function Provider({ children }: any) {
-  const [theme, setTheme] = useState('light')
+  const {Light, Dark} = Theme
+  const [theme, setTheme] = useState(Light)
 
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark')
+    setTheme(theme === Dark ? Light : Dark)
   }
 
   const value = {

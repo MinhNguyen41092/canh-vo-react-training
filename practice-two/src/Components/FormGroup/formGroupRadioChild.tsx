@@ -1,6 +1,8 @@
-import React from "react";
-import Label from "../Label/label";
-import Input from "../Input/input";
+import React from "react"
+
+// Components
+import Label from "../Label/Label"
+import Input from "../Input/Input"
 
 interface FormGroupRadioChildProps {
   labelHeading: string
@@ -11,7 +13,6 @@ interface FormGroupRadioChildProps {
   checked: Array<boolean>
   handleInput(e: any): void
   labelText: Array<string>
-  htmlFor: Array<string>
 }
 
 function FormGroupRadioChild(props: FormGroupRadioChildProps) {
@@ -24,7 +25,6 @@ function FormGroupRadioChild(props: FormGroupRadioChildProps) {
     checked,
     handleInput,
     labelText,
-    htmlFor
   } = props
 
   return (
@@ -42,11 +42,11 @@ function FormGroupRadioChild(props: FormGroupRadioChildProps) {
             value={value[0]}
             checked={checked[0]}
             className="input radio-input"
-            handleInput={handleInput}
+            handleInputChange={handleInput}
           />
           <Label 
             text={labelText[0]}
-            htmlFor={htmlFor[0]}
+            htmlFor={idInput[0]}
             className={labelClassname}
           />
         </div>
@@ -58,11 +58,11 @@ function FormGroupRadioChild(props: FormGroupRadioChildProps) {
             value={value[1]}
             checked={checked[1]}
             className="input radio-input"
-            handleInput={handleInput}
+            handleInputChange={handleInput}
           />
           <Label 
             text={labelText[1]}
-            htmlFor={htmlFor[1]}
+            htmlFor={idInput[1]}
             className={labelClassname}
           />
         </div>

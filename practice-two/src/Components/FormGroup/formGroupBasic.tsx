@@ -1,6 +1,8 @@
-import React from "react";
-import Label from "../Label/label";
-import Input from "../Input/input";
+import React from "react"
+
+// Components
+import Label from "../Label/Label"
+import Input from "../Input/Input"
 
 interface FormGroupBasic {
     labelText: string 
@@ -51,7 +53,7 @@ function FormGroupBasic(props: FormGroupBasic) {
         value={inputValue} 
         className={inputClassName}
         accept={accept}
-        handleInput={handleInput}
+        handleInputChange={handleInput}
       />
       {errorEmail && (
         <span className="form-error">{errorEmail}</span>

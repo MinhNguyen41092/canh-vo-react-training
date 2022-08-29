@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 interface InputProps {
   type: string 
@@ -9,11 +9,21 @@ interface InputProps {
   className: string 
   checked?: boolean
   accept?: string 
-  handleInput(e: any): void
+  handleInputChange(e: any): void
 }
 
 function Input(props: InputProps) {
-  const {type, id, name, value, className, checked, placeholder, accept, handleInput} = props
+  const {
+    type, 
+    id, 
+    name, 
+    value, 
+    className, 
+    checked, 
+    placeholder, 
+    accept, 
+    handleInputChange
+  } = props
 
   return (
     <input 
@@ -25,7 +35,7 @@ function Input(props: InputProps) {
       checked={checked}
       className={className}
       placeholder={placeholder}
-      onChange={(e) => handleInput(e)} 
+      onChange={(e) => handleInputChange(e)} 
   />
   )
 }

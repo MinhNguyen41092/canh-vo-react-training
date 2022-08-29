@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { getUser, editUser } from '../services/action'
-import UserForm from '../components/Form/userForm'
-import Loading from '../components/Loading/loading'
+import React, { useEffect, useState } from "react"
+
+// Router
+import { useNavigate, useParams } from "react-router-dom"
+
+// Services
+import { getUser, editUser } from "../services/action"
+
+// Components
+import UserForm from "../components/Form/UserForm"
+import Loading from "../components/Loading/Loading"
+
+const initUserValue = {
+  "name": "",
+  "email": "",
+  "gender": "Male",
+  "status": "Inactive",
+  "avatar": ""
+}
 
 function EditUser() {
-  const initUserValue = {
-    "name": "",
-    "email": "",
-    "gender": "Male",
-    "status": "Inactive",
-    "avatar": ""
-  }
-
   const [user, setUser] = useState(initUserValue)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -26,8 +32,13 @@ function EditUser() {
   // Get user selected
   const getUserData = async () => {
     setLoading(true)
-    const res = await getUser(id)
-    setUser(res?.data)
+    try {
+      const user = await getUser(id)
+      setUser(user)
+      setError('')
+    } catch {
+      setError('Error while calling api')
+    }
     setLoading(false)
   }
 
@@ -42,26 +53,32 @@ function EditUser() {
     if(!!user.name && !!user.email && !!user.gender && !!user.avatar) {
       setLoading(true)
       setError('')
-      await editUser(user, id)
-      navigate('/')
+      try {
+        await editUser(user, id)
+        navigate('/')
+        setError('')
+      } catch {
+        setError('Error while calling api')
+      }
     } else setError('Please complete all fields correctly')
   }
 
   return (
     <div className="container add-user">
-      {loading && <Loading />}
       <h2 className="add-user-heading">Edit User</h2>
-      <UserForm 
-        handleValueChange = {handleValueChange}
-        handleAddUser = {handleEditUser}
-        error={error}
-        btnText="Save"
-        name={user.name}
-        email={user.email}
-        gender={user.gender}
-        status={user.status}
-        userAvatar={user.avatar}
-      />
+      {loading ? (<Loading />) : (
+        <UserForm 
+          handleValueChange={handleValueChange}
+          handleAddUser={handleEditUser}
+          error={error}
+          btnText="Save"
+          name={user.name}
+          email={user.email}
+          gender={user.gender}
+          status={user.status}
+          userAvatar={user.avatar}
+        />
+      )}
     </div>
   )
 }

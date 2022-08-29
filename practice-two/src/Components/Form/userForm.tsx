@@ -1,8 +1,12 @@
 import React, { useState, useContext } from "react"
+
+// Components
+import ActionButton from "../Button/ActionButton"
+import FormGroupBasic from "../FormGroup/FormGroupBasic"
+import FormGroupRadioChild from "../FormGroup/FormGroupRadioChild"
+
+// Context
 import Context from "../../store/Context"
-import ActionButton from "../Button/actionButton"
-import FormGroupBasic from "../FormGroup/formGroupBasic"
-import FormGroupRadioChild from "../FormGroup/formGroupRadioChild"
 
 interface UserFormProps {
   handleValueChange(key: string, value: string): void
@@ -16,6 +20,8 @@ interface UserFormProps {
   userAvatar?: string
 }
 
+const pattern = /^[^ ]*@[^ ]+\.[a-z]{2,3}$/
+
 function UserForm(props: UserFormProps) {
 
   const themeContext = useContext(Context)
@@ -23,15 +29,22 @@ function UserForm(props: UserFormProps) {
   const [errorEmail, setErrorEmail] = useState('');
   const [display, setDisplay] = useState('block')
 
-  const {error, btnText, handleValueChange, handleAddUser, name, email, gender, status, userAvatar} = props
-
+  const {
+    error, 
+    btnText, 
+    handleValueChange, 
+    handleAddUser, 
+    name, 
+    email, 
+    gender, 
+    status, 
+    userAvatar
+  } = props
 
   // Get value input text type 
   const onValueTextChange = (e: any) => {
     handleValueChange(e.target.name, e.target.value)
   }
-
-  const pattern = /^[^ ]*@[^ ]+\.[a-z]{2,3}$/
 
   // get value input email type
   const onValueEmailChange = (e: any) => {
@@ -116,7 +129,6 @@ function UserForm(props: UserFormProps) {
           checked={[gender==="Male", gender==="Female"]}
           handleInput={onValueRadioChange}
           labelText={["Male", "Female"]}
-          htmlFor={["male", "female"]}
         />
 
         <FormGroupRadioChild 
@@ -128,14 +140,14 @@ function UserForm(props: UserFormProps) {
           checked={[status==="Inactive", status==="Active"]}
           handleInput={onValueRadioChange}
           labelText={["Inactive", "Active"]}
-          htmlFor={["inactive", "active"]}
+
         />
       </div>
 
       <ActionButton 
         text={btnText} 
         className="add-btn"
-        handleButton={handleAddUser}
+        handleClick={handleAddUser}
       />
   </form>
   )
