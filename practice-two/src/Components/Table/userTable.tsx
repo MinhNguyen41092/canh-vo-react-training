@@ -1,39 +1,38 @@
-import React from "react"
+import React, { useState } from "react"
 
 // Interface
 import { IUser } from "../../interfaces/IUser"
+
+// Router
+import { NavLink } from "react-router-dom"
 
 // Components
 import ActionButton from "../Button/ActionButton"
 import ConfirmPopup from "../Popup/ConfirmPopup"
 
-
 interface UserTableProps {
   users: IUser[]
   query: string
-  loading: boolean
-  display: boolean
-  id: number
-  handleHidePopupDelete(): void
-  handleShowPopupDelete(e: any, userId: number): void
-  handleEditUser(e: any, userId: number): void
-  handleDeleteUser(e: any, userId: number): void
-  error: string
+  getUsersDetails(): void
 }
 
 function UserTable(props: UserTableProps) { 
+  const [display, setDisplay] = useState(false)
+
+   // Show popup
+  const handleShowPopupDelete = () => {
+    setDisplay(true)
+  }
+
+  // Close popup
+  const handleHidePopupDelete = () => {
+    setDisplay(false)
+  }
 
   const {
     users,
     query,
-    loading,
-    display,
-    id, 
-    handleEditUser, 
-    handleDeleteUser, 
-    handleHidePopupDelete, 
-    handleShowPopupDelete,
-    error
+    getUsersDetails
   } = props
   
   return (
@@ -60,37 +59,33 @@ function UserTable(props: UserTableProps) {
                   <td>{user.status}</td>
                   <td><img src={user.avatar} className="user-table-avatar" alt="user avatar" /></td>
                   <td className="td-action">
+                    <NavLink to={`/edit/${user.id}`}>
                     <ActionButton 
                       text="Edit" 
                       className="edit-btn"
-                      userId={user.id}
-                      handleClick={handleEditUser}
-                      
                     />
+                    </NavLink>
+
                     <ActionButton 
                       text="Delete" 
                       className="delete-btn"
-                      userId={user.id}
                       handleClick={handleShowPopupDelete}
                     />
+                    { display && ( 
+                      <ConfirmPopup 
+                        heading="Confirm Delete"
+                        text="Do you want to delete this User?"
+                        id={user.id}
+                        handleHidePopupDelete={handleHidePopupDelete}
+                        getUsersDetails={getUsersDetails}
+                      /> 
+                    )}
                   </td>
                 </tr>
               ))
             }
         </tbody>
       </table>
-
-      { display && ( 
-        <ConfirmPopup 
-          heading="Confirm Delete"
-          text="Do you want to delete this User?"
-          loading={loading}
-          id={id}
-          error={error}
-          handleHidePopupDelete={handleHidePopupDelete}
-          handleDeleteUser={handleDeleteUser}
-        /> 
-      )}
     </>
   )
 }

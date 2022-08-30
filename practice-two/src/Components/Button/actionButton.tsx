@@ -3,17 +3,16 @@ import React from "react"
 interface ActionButtonProps {
   className: string
   text: string
-  userId?: number
-  handleClick(e?: any, userId?: number | undefined): void
+  handleClick?(e?: any): void
 }
 
 function ActionButton(props: ActionButtonProps) {
-  const {className, handleClick, text, userId} = props
+  const {className, handleClick, text} = props
 
   return (
     <button 
       className={`btn ${className}`} 
-      onClick={(e) => handleClick(e, userId)}
+      onClick={handleClick}
       >
         {text}
       </button>

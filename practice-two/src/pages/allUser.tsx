@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react"
 
 // Services
-import { getUsers, deleteUser } from "../services/action"
-
-// Navigate
-import { useNavigate } from "react-router-dom"
+import { getUsers } from "../services/action"
 
 // Components
 import UserTable from "../components/Table/UserTable"
@@ -21,11 +18,7 @@ function AllUser() {
   const [users, setUsers] = useState(initUsers)
   const [loading, setLoading] = useState(false)
   const [query, setQuery] = useState("")
-  const [display, setDisplay] = useState(false)
-  const [id, setId] = useState(0)
   const [error, setError] = useState('')
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     getUsersDetails()
@@ -41,36 +34,6 @@ function AllUser() {
   } catch {
     setError('Error while calling api')
   }
-    setLoading(false)
-  }
-
-  // Handle edit user 
-  const handleEditUser = (e: any, userId: number) => {
-    navigate(`/edit/${userId}`)
-  }
-
-  // Close popup
-  const handleHidePopupDelete = () => {
-    setDisplay(false)
-  }
-
-  // Show popup
-  const handleShowPopupDelete = (e: any, userId: number) => {
-    setDisplay(true)
-    setId(userId)
-  }
-
-  // Handle delete user
-  const handleDeleteUser = async (e: any, userId: number) => {
-    setLoading(true)
-    try {
-      await deleteUser(userId)
-      getUsersDetails()
-      setError('')
-      setDisplay(false)
-    } catch {
-      setError('Error while calling api')
-    }
     setLoading(false)
   }
  
@@ -100,18 +63,11 @@ function AllUser() {
       <p className="error-msg">{error}</p>
 
       { loading && <Loading /> }
-
+      
       <UserTable 
           users={users}
           query={query}
-          loading={loading}
-          display={display}
-          id={id}
-          handleHidePopupDelete={handleHidePopupDelete}
-          handleShowPopupDelete={handleShowPopupDelete}
-          handleEditUser={handleEditUser}
-          handleDeleteUser={handleDeleteUser}
-          error={error}
+          getUsersDetails={getUsersDetails}
         /> 
     </>
   )

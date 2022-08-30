@@ -3,7 +3,8 @@ import React, { useState, useContext } from "react"
 // Components
 import ActionButton from "../Button/ActionButton"
 import FormGroupBasic from "../FormGroup/FormGroupBasic"
-import FormGroupRadioChild from "../FormGroup/FormGroupRadioChild"
+import Input from "../Input/Input"
+import Label from "../Label/Label"
 
 // Context
 import Context from "../../store/Context"
@@ -120,28 +121,87 @@ function UserForm(props: UserFormProps) {
       />
 
       <div className="form-group-radio">
-        <FormGroupRadioChild 
-          labelHeading="Gender"
-          labelClassname="form-label"
-          idInput={["male", "female"]}
-          name="gender"
-          value={["Male", "Female"]}
-          checked={[gender==="Male", gender==="Female"]}
-          handleInput={onValueRadioChange}
-          labelText={["Male", "Female"]}
-        />
-
-        <FormGroupRadioChild 
-          labelHeading="Status"
-          labelClassname="form-label"
-          idInput={["inactive", "active"]}
-          name="status"
-          value={["Inactive", "Active"]}
-          checked={[status==="Inactive", status==="Active"]}
-          handleInput={onValueRadioChange}
-          labelText={["Inactive", "Active"]}
-
-        />
+        <div className="form-group">
+          <Label 
+            text="Gender"
+            className="form-label"
+          />
+          <div className="form-input">
+            <div className="input-group">
+              <Input 
+                type="radio"
+                id="male"
+                name="gender"
+                value="Male"
+                checked={gender==="Male"}
+                className="input radio-input"
+                handleInputChange={onValueRadioChange}
+              />
+              <Label 
+                text="Male"
+                htmlFor="male"
+                className="form-label"
+              />
+            </div>
+            <div className="input-group">
+              <Input 
+                type="radio"
+                id="female"
+                name="gender"
+                value="Female"
+                checked={gender==="Female"}
+                className="input radio-input"
+                handleInputChange={onValueRadioChange}
+              />
+              <Label 
+                text="Female"
+                htmlFor="female"
+                className="form-label"
+              />
+            </div>
+          </div>
+        </div>
+        
+        <div className="form-group">
+          <Label 
+            text="Status"
+            className="form-label"
+          />
+          <div className="form-input">
+            <div className="input-group">
+              <Input 
+                type="radio"
+                id="inactive"
+                name="status"
+                value="Inactive"
+                checked={status==="Inactive"}
+                className="input radio-input"
+                handleInputChange={onValueRadioChange}
+              />
+              <Label 
+                text="Inactive"
+                htmlFor="inactive"
+                className="form-label"
+              />
+            </div>
+            <div className="input-group">
+              <Input 
+                type="radio"
+                id="active"
+                name="status"
+                value="Active"
+                checked={status==="Active"}
+                className="input radio-input"
+                handleInputChange={onValueRadioChange}
+              />
+              <Label 
+                text="Active"
+                htmlFor="active"
+                className="form-label"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       <ActionButton 

@@ -13,8 +13,8 @@ import Loading from "../components/Loading/Loading"
 const initUserValue = {
   "name": "",
   "email": "",
-  "gender": "Male",
-  "status": "Inactive",
+  "gender": "",
+  "status": "",
   "avatar": ""
 }
 

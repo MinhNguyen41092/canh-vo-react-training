@@ -10,7 +10,7 @@ import Switch from "react-switch"
 import Context from "../../store/Context"
 
 // Enum
-import { Theme } from "../../enums/theme"
+import { Theme } from "../../enums/Theme"
 
 function Navbar() {
   const themeContext = useContext(Context)

@@ -1,23 +1,41 @@
-import React from "react"
+import React, {useState} from "react"
+
+// Services
+import { deleteUser } from "../../services/action"
 
 // Components
 import ActionButton from "../Button/ActionButton"
 import Loading from "../Loading/Loading"
 
+// Interface
 interface ConfirmPopupProps {
   heading: string
   text: string
-  loading: boolean
-  id: number
-  error: string
+  id?: number
+  getUsersDetails(): void
   handleHidePopupDelete(): void
-  handleDeleteUser(e: any, userId: number): void
 }
 
 function ConfirmPopup(props: ConfirmPopupProps) {
-  
-  const {heading, text, handleHidePopupDelete, id, handleDeleteUser, loading, error} = props
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
+  const {heading, text, handleHidePopupDelete, getUsersDetails, id} = props
+
+  // Handle delete user
+  const handleDeleteUser = async () => {
+    setLoading(true)
+    try {
+      await deleteUser(id)
+      getUsersDetails()
+      setError('')
+      handleHidePopupDelete()
+    } catch {
+      setError('Error while calling api')
+    }
+    setLoading(false)
+  }
+  
   return (
     <div className="confirm-popup">
       <div className="popup-inner">
@@ -35,7 +53,6 @@ function ConfirmPopup(props: ConfirmPopupProps) {
           <ActionButton 
             className="confirm-btn"
             text="Confirm"
-            userId={id}
             handleClick={handleDeleteUser}
           />
           <ActionButton 

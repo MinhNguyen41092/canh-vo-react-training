@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Context from "./Context";
 
 // Enum
-import { Theme } from "../enums/theme";
+import { Theme } from "../enums/Theme";
 
 function Provider({ children }: any) {
   const {Light, Dark} = Theme
