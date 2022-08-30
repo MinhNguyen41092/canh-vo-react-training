@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import Context from "./Context";
 
 // Enum
-import { Theme } from "../enums/Theme";
+import { THEME } from "../enums/enums";
 
 function Provider({ children }: any) {
-  const {Light, Dark} = Theme
+  const {Light, Dark} = THEME
   const [theme, setTheme] = useState(Light)
 
   const toggleTheme = () => {

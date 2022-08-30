@@ -9,6 +9,9 @@ import Label from "../Label/Label"
 // Context
 import Context from "../../store/Context"
 
+// Emums
+import { GENDER, STATUS } from "../../enums/enums"
+
 interface UserFormProps {
   handleValueChange(key: string, value: string): void
   handleAddUser(e: any): void
@@ -41,6 +44,9 @@ function UserForm(props: UserFormProps) {
     status, 
     userAvatar
   } = props
+
+  const { MALE, FEMALE } = GENDER
+  const { INACTIVE, ACTIVE } = STATUS
 
   // Get value input text type 
   const onValueTextChange = (e: any) => {
@@ -132,8 +138,8 @@ function UserForm(props: UserFormProps) {
                 type="radio"
                 id="male"
                 name="gender"
-                value="Male"
-                checked={gender==="Male"}
+                value={MALE}
+                checked={gender === MALE}
                 className="input radio-input"
                 handleInputChange={onValueRadioChange}
               />
@@ -148,8 +154,8 @@ function UserForm(props: UserFormProps) {
                 type="radio"
                 id="female"
                 name="gender"
-                value="Female"
-                checked={gender==="Female"}
+                value={FEMALE}
+                checked={gender === FEMALE}
                 className="input radio-input"
                 handleInputChange={onValueRadioChange}
               />
@@ -173,8 +179,8 @@ function UserForm(props: UserFormProps) {
                 type="radio"
                 id="inactive"
                 name="status"
-                value="Inactive"
-                checked={status==="Inactive"}
+                value={INACTIVE}
+                checked={status === INACTIVE}
                 className="input radio-input"
                 handleInputChange={onValueRadioChange}
               />
@@ -189,8 +195,8 @@ function UserForm(props: UserFormProps) {
                 type="radio"
                 id="active"
                 name="status"
-                value="Active"
-                checked={status==="Active"}
+                value={ACTIVE}
+                checked={status === ACTIVE}
                 className="input radio-input"
                 handleInputChange={onValueRadioChange}
               />
