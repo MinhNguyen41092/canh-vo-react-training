@@ -1,0 +1,35 @@
+.user-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+}
+
+.user-table th {
+  background-color: var(--btn-primary-color);
+  color: var(--primary-color);
+}
+
+.user-table td, .user-table th {
+  border: 1px solid var(--secondary-color);
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.user-table-avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  margin: 0 auto;
+  background-position: center;
+}
+
+.td-action .btn:first-child {
+  margin-right: 2rem;
+}
+
+.error-msg {
+  font-size: 1.6rem;
+  color: var(--btn-warning-color);
+  text-align: center;
+}

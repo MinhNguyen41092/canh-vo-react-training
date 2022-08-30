@@ -1,0 +1,8 @@
+:root {
+  --primary-color: #ffffff;
+  --secondary-color: #DDDDDD;
+  --dark-color: rgb(28, 30, 33);
+  --btn-primary-color: #337ab7;
+  --btn-warning-color: #f0ad4e;
+  --btn-danger-color: #d9534f;
+}
