@@ -32,13 +32,17 @@ function EditUser() {
   // Get user selected
   const getUserData = async () => {
     setLoading(true)
-    try {
-      const user = await getUser(id)
-      setUser(user)
-      setError('')
-    } catch {
-      setError('Error while calling api')
+    
+    if(id) {
+      try {
+        const user = await getUser(id)
+        setUser(user)
+        setError('')
+      } catch {
+        setError('Error while calling api')
+      }
     }
+
     setLoading(false)
   }
 
